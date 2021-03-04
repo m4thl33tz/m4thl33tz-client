@@ -1,7 +1,5 @@
 # M4thl33tz-client
 
-## Goal
-
 #### A goal goes here...
 
 #### By _**David Butler,**_ _**Justin Martin,**_ _**Andrew Bray,**_ _**Jonathan Quesada,**_ _**Sam Formichella**_
