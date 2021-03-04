@@ -4,7 +4,7 @@
 
 #### A goal goes here...
 
-#### By _**David Butler**_ _**Justin Martin**_ _**Andrew Bray**_ _**Jonathan Quesada**_ _**Sam Formichella**_
+#### By _**David Butler,**_ _**Justin Martin,**_ _**Andrew Bray,**_ _**Jonathan Quesada,**_ _**Sam Formichella**_
 
 ## Description
 
@@ -28,17 +28,16 @@
 
 - davidabutler92@yahoo.com
 - justin.martin7x@gmail.com
-- andrew's email
-- Jonathan's email
-- Sam's email
+- amichaelbray@gmail.com
+- jon.e.quesada@gmail.com
+- sformichella@gmail.com
+
 
 ## Technologies Used
 
 #### React
 
 #### Git
-
-#### Node.js
 
 #### Socket.io
 
@@ -48,6 +47,6 @@
 
 #### Auth0
 
-#### Copyright (c) 2021 _**David Butler**_ _**Justin Martin**_ _**Andrew Bray**_ _**Jonathan Quesada**_ _**Sam Formichella**_
+#### Copyright (c) 2021 _**David Butler,**_ _**Justin Martin,**_ _**Andrew Bray,**_ _**Jonathan Quesada,**_ _**Sam Formichella,**_
 
 #### The software is licensed under the MIT license [Click here](LICENSE.md)
