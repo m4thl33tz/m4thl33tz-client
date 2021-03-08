@@ -1,9 +1,5 @@
-button {
-  font-family: 'Architects Daughter', cursive;
-}
 
 .academicRoom {
-  --footer-height: 120px;
   height: 100%;
   font-size: 30px;
   font-family: 'Architects Daughter', cursive;
@@ -40,6 +36,14 @@ button {
   flex-direction: column;
 }
 
+.responseContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 5%;
+
+}
+
 .problemContainer {
   display: flex;
   flex-direction: column;
@@ -66,56 +70,11 @@ button {
   width: 50%;
 }
 
-.fracButton {
-  height: 2.5rem;
-}
-
-.dotButton {
-  height: 2.5rem;
-}
-.exponentButton {
-  height: 2.5rem;
-}
-
 .answerButtonWrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
 }
-
-.problemString {
-  margin-top: 25px;
-  p {
-    margin: 0px;
-  }
-}
-
-.mathBox {
-  background: #fff;
-  padding: 40px 0px;
-  width: 90%;
-  max-width: 600px;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border: solid black 4px;
-
-}
-.equationWrapper {
-  margin-bottom: 60px;
-}
-
-.equation {
-  font-family:'Courier New', Courier, monospace;
-}
-
-.myAnswer {
-  color: green;
-}
-
 
 .answerColumn {
   border: solid blue 0px;
@@ -124,20 +83,8 @@ button {
   align-items: center;
 }
 
-.responseContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  background-color: rgb(221, 218, 168);
-  h3 {
-    text-align: center;
-    font-size: 1.5rem;
-  }
-}
+/*
+
 
 .showmeContainer {
   border: solid rgb(51, 75, 107) 0px;
@@ -147,17 +94,4 @@ button {
   margin-top: 30px;
   color: red;
 }
-
-.knob {
-  color: yellow;
-}
-
-footer {
-  background: #821;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  height: var(--footer-height);
-}
+*/

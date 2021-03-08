@@ -1,0 +1,34 @@
+.soloMathBox {
+  background: #fff;
+  padding: 40px 0px;
+  margin-right: 5%;
+  margin-top: 1rem;
+  width: 90%;
+  max-width: 50vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: solid black 4px;
+
+}
+
+.problemString {
+  margin-top: 25px;
+  p {
+    margin: 0px;
+  }
+}
+
+.equationWrapper {
+  margin-bottom: 60px;
+}
+
+.equation {
+  font-family:'Courier New', Courier, monospace;
+}
+
+.myAnswer {
+  color: green;
+}

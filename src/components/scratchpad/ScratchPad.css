@@ -1,0 +1,18 @@
+.scratchpadContainer {
+  height: 65vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ 
+ 
+ .scratchpadItem {
+   border: solid red;
+   width: 90%;
+   height: 90%;
+   background-image: url(../../assets/Graph-paper-1.jpg);
+   background-size: cover;
+ }
+ 

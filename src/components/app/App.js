@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 
-import HomePage from '../home/HomePage';
-import PracticeRoom from '../practiceroom/PracticeRoom';
-import AcademicRoom from '../academicroom/AcademicRoom';
+import HomePage from '../../pages/home/HomePage';
+import PracticeRoom from '../../pages/practiceroom/PracticeRoom';
+import AcademicRoom from '../../pages/academicroom/AcademicRoom';
 
 export default function App() {
-  let theme = createMuiTheme({
+  const theme = createMuiTheme({
     typography: {
       fontFamily: 'sans-serif',
     },

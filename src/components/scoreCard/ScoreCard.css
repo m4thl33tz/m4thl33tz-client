@@ -1,0 +1,17 @@
+.scoresContainer {
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.scoreCard {
+  border: solid red;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px 0px;
+  min-width: 25vw;
+  max-width: 25vw;
+  text-align: center;
+}
