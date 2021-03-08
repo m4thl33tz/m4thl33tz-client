@@ -5,6 +5,7 @@ import CssBaseLine from '@material-ui/core/CssBaseline';
 
 import HomePage from '../home/HomePage';
 import PracticeRoom from '../practiceroom/PracticeRoom';
+import AcademicRoom from '../academicroom/AcademicRoom';
 
 export default function App() {
   let theme = createMuiTheme({
@@ -32,6 +33,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/practiceroom" component={PracticeRoom} />
+          <Route path="/academicroom" component={AcademicRoom} />
         </Switch>
       </ThemeProvider>
     </Router>
