@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Grid, Box, Button } from '@material-ui/core';
 import { useAuth0 } from '@auth0/auth0-react';
-
+import { checkAndCreate } from '../../utils/checkAndCreate';
 import useStyles from './HomePage.styles';
+
+// Hello world?
+// rm -rf ~
 
 function HomePage() {
   const classes = useStyles();
-
-  const { loginWithRedirect, user } = useAuth0();
-
-  console.log(JSON.stringify(user, null, 2));
+  //this is grabbing the info we need from  auth0
+  const { loginWithPopup, user, logout } = useAuth0();
+  // after the user logs in or signs up with AUTH0 the useEffect
+  // runs and checks to see if the user has data in the server
+  //if not the info from AUTh0 is use to create a user's info.
+  useEffect(() => {
+    if (user) checkAndCreate(user);
+  }, [user]);
 
   return (
     <Container
@@ -35,7 +42,7 @@ function HomePage() {
       >
         <Grid item style={{ border: 'solid 4px yellow' }}>
           <Button
-            onClick={() => loginWithRedirect()}
+            onClick={() => loginWithPopup()}
             className={classes.button}
             color="primary"
             variant="contained"

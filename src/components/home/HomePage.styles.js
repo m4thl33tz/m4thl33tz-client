@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  // button: {
-  //   height: '200px',
-  //   width: '300px',
-  //   borderRadius: '20px',
-  // },
+  button: {
+    height: '200px',
+    width: '300px',
+    borderRadius: '20px',
+  },
 }));
 
 export default useStyles;
