@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPlayer } from '../../actions/userActions';
+import { getUser } from '../../selectors/userSelector';
 import { useAuth0 } from '@auth0/auth0-react';
 import { checkAndCreate } from '../../utils/checkAndCreate';
 import styles from './SplashPage.css';
@@ -7,14 +10,16 @@ import Anime from 'react-anime';
 const SplashPage = () => {
   //this is grabbing the info we need from  auth0
   const { loginWithPopup, user, logout } = useAuth0();
+  const dispatch = useDispatch();
 
   // after the user logs in or signs up with AUTH0 the useEffect
   // runs and checks to see if the user has data in the server
   //if not the info from AUTh0 is use to create a user's info.
   useEffect(() => {
-    if (user) checkAndCreate(user);
+    if (user) dispatch(setPlayer(user), checkAndCreate(user));
   }, [user]);
-
+  const currentUser = useSelector(getUser) || {};
+  console.log('THIS IS CURRENT USER', currentUser)
   const buttonPhrase = 'm4thl33tz';
   const leavePhrase = 'Why doncha\' L0g Out';
 
