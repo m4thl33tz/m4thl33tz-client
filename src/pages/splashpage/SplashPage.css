@@ -1,0 +1,45 @@
+.splashContainer {
+  background: rgba(50, 20, 66, 0.8);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.backgroundTwo {
+  content: '';
+  background-image: url(../../assets/math-wallpaper-chalkboard.jpg);
+  background-size: cover;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  opacity: 1;
+  z-index: -1;
+}
+
+.button {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 9rem;
+  color: rgb(247, 228, 253);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
+  filter: drop-shadow(0, 0, 10px, black)
+}
+
+.buttontwo {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 3rem;
+  color: rgb(231, 176, 114);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
+}
+
+.button .letter {
+  display: inline-block;
+  white-space: pre;
+}
