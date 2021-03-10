@@ -19,14 +19,13 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
           dangerouslySetInnerHTML={{
             __html: mml,
           }}></span>
-        <span>{answer}</span>
         <form onSubmit={checkAnswer} >
           <input
             value={answer}
             onChange={updateAnswer}
             className={styles.myAnswer}
             placeholder="answer here..." />
-          <button type="submit">Submit</button>
+          <button id="SubmitButton" type="submit">Submit</button>
         </form>
       </div>
     </div>
@@ -36,7 +35,7 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
 SoloMathbox.propTypes = {
   answer: PropTypes.string.isRequired,
   mml: PropTypes.string.isRequired,
-  checkAnswer: PropTypes.bool,
+  checkAnswer: PropTypes.func,
   updateAnswer: PropTypes.func.isRequired,
 };
 

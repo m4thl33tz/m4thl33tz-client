@@ -14,24 +14,19 @@ import styles from './Academicroom.css';
 
 
 const AcademicRoom = (props) => {
-  const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState('');
   const [problemString, setProblemString] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
   const [currentScore, setCurrentScore] = useState(0);
   const [allTimeScore, setAllTimeScore] = useState(0);
+  const [setLength, setSetLength] = useState(0);
   const [problems, setProblems] = useState([]);
-  // const [answer, setAnswer] = useState('');
+  const [answer, setAnswer] = useState('');
   const [operationType, setOperationType] = useState('addition');
   const [difficulty, setDifficulty] = useState('easy');
   const [counter, setCounter] = useState(0);
-
-  //answerButton functions
-  const submitAnswer = () => alert('clicked submit answer');
-  const skipProblem = () => alert('clicked skip problem');
-  const showSolution = () => alert('clicked show solution');
-
-  const updateType = ({ target }) => {
+  
+  const updateOperationType = ({ target }) => {
     setOperationType(target.value);
   };
 
@@ -47,37 +42,96 @@ const AcademicRoom = (props) => {
     setCounter((counter) => counter + 1);
   };
 
+  const incrementScore = () => {
+    setCurrentScore((currentScore) => currentScore + 1);
+  };
+
+  const disableSubmit = () => {
+    document.getElementById('SubmitButton').disabled = true;
+  };
+
+  const enableSubmit = () => {
+    document.getElementById('SubmitButton').disabled = false;
+  };
+
+  const disableNextAndSkip = () => {
+    if(counter + 2 === setLength){ 
+      document.getElementById('nextButton').disabled = true;
+      document.getElementById('skipButton').disabled = true;
+    }
+  };
+
+  const nextProblem = ({ target }) => {
+    increment();
+    setIsCorrect(null);
+    setAnswer('');
+    setFeedback('');
+    enableSubmit();
+    disableNextAndSkip();
+  };
+
+  const skipProblem = ({ target }) => {
+    increment();
+    setIsCorrect(null);
+    setAnswer('');
+    setFeedback('');
+    disableNextAndSkip();
+  };
+  
+  const showSolution = ({ target }) => {
+    setFeedback(problems[counter].solution);
+    disableSubmit();
+  };
+
   const checkAnswer = (event) => {
     event.preventDefault();
+    disableSubmit();
     const parsedAnswer = Number(answer);
-    console.log(parsedAnswer);
-
     const isCorrect = parsedAnswer === problems[counter].solution;
-    return isCorrect;
+    if(isCorrect === true) {
+      incrementScore();
+      setFeedback('You did it! Good job!');
+    }
+    else setFeedback('Nice try!');
   };
+
+  useEffect(() => {
+    getProblems({ type: operationType, difficulty }).then((problems) => {
+      setProblems(problems);
+      setSetLength(problems.length);
+      setCounter(0);
+    });
+  }, [difficulty]);
+
+  useEffect(() => {
+    getProblems({ type: operationType, difficulty }).then((problems) => {
+      setProblems(problems);
+      setSetLength(problems.length);
+      setCounter(0);
+    });
+  }, [operationType]);
   
   useEffect(() => {
     getProblems({ type: operationType, difficulty }).then((problems) => {
       setProblems(problems);
+      setSetLength(problems.length);
     });
   }, []);
-  
-  const problem = problems[counter];
-
-  console.log('counter', counter);
-
-  console.log('problem', problem?.equation);
-
+ 
   return (
     <div className={styles.academicRoom}>
       <main className={styles.academicContainer}>
         <div className={styles.problemColumn}>
           <div className={styles.responseContainer}>
-            <Feedback feedback={feedback} />
+            <Feedback
+              feedback={feedback}
+              setLength={setLength}
+              counter={counter}
+            />
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              equation={problems[counter]?.equation}
+              mml={problems[counter]?.mml}
               answer={answer}
               problemString={problemString}
               updateAnswer={updateAnswer}
@@ -92,15 +146,18 @@ const AcademicRoom = (props) => {
             </div>
             <div className={styles.answerButtonWrapper}>
               <AnswerButton
-                text="submit"
-                buttonFunction={submitAnswer}
+                text="Next Problem"
+                id="nextButton"
+                buttonFunction={nextProblem}
               />
               <AnswerButton
-                text="skip"
+                text="Skip Problem"
+                id="skipButton"
                 buttonFunction={skipProblem}
               />
               <AnswerButton
-                text="show solution"
+                text="Show Solution"
+                id="showButton"
                 buttonFunction={showSolution}
               />
             </div>
@@ -115,7 +172,7 @@ const AcademicRoom = (props) => {
         </div>
       </main>
       <AcademicFooter
-        updateType={updateType}
+        updateOperationType={updateOperationType}
         updateDifficulty={updateDifficulty}
         difficulty={difficulty}
         operationType={operationType}

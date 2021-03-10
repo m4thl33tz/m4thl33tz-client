@@ -1,6 +1,6 @@
 .feedbackItem {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   margin-top: 50px;
   height: 10vh;

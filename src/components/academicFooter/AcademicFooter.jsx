@@ -4,7 +4,7 @@ import styles from './AcademicFooter.css';
 import Knob from '../knob/Knob';
 import VolumeBar from '../volumebar/VolumeBar';
 
-const AcademicFooter = ({ updateType, updateDifficulty, operationType, difficulty }) => {
+const AcademicFooter = ({ updateOperationType, updateDifficulty, operationType, difficulty }) => {
   return (
     <footer className={styles.academicFooter}>
       <div type="knob 1"> 
@@ -24,7 +24,7 @@ const AcademicFooter = ({ updateType, updateDifficulty, operationType, difficult
         </select>
       </div>
       <div>
-        <select value={operationType} onChange={updateType}>
+        <select value={operationType} onChange={updateOperationType}>
           <option value="">
             Operation
           </option>
@@ -51,7 +51,7 @@ const AcademicFooter = ({ updateType, updateDifficulty, operationType, difficult
 };
 
 AcademicFooter.propTypes = {
-  updateType: PropTypes.func.isRequired,
+  updateOperationType: PropTypes.func.isRequired,
   updateDifficulty: PropTypes.func.isRequired,
   operationType: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
