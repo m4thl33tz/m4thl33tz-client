@@ -1,21 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { WAITING, START_GAME } from '../../constants/gameEvents';
+// import { WAITING, START_GAME } from '../../constants/gameEvents';
 
 export default function gameRoom({ socket }) {
-  const [gameState, setGameState] = useState(WAITING);
+  const [gameState, setGameState] = useState('WAITING');
   const [players, setPlayers] = useState([]);
   const [problemSet, setProblemSet] = useState([]);
 
-  const [isHost, setIsHost] = useState(false);
+  const [isHost, setIsHost] = useState(false); // Necessary?
   const [roomKey, setRoomKey] = useState('');
+
+  const { nickname } = socket;
+
+  useEffect(() => {
+    if(socket.isHost) socket.emit('CREATE_ROOM', { nickname });
+    else {
+      setRoomKey(socket.roomKey);
+      console.log('JOINED');
+      socket.emit('JOIN_ROOM', { roomKey: socket.roomKey, nickname });
+      socket.emit('UPDATE_PLAYERS', { roomKey: socket.roomKey, nickname });
+    }
+  }, []);
   
-  socket.on('ROOM_KEY', ({ key, isHost }) => {
-    setRoomKey(key);
+  socket.on('ROOM_KEY', ({ roomKey, isHost }) => {
+    setRoomKey(roomKey);
     setIsHost(isHost);
   });
 
   socket.on('PROBLEM_SET', problems => setProblemSet(problems));
+
+  socket.on('JOIN_RESULTS', data => {
+    const { userId } = data;
+
+    setPlayers(players => {
+      const playerFound = players.find(p => p.userId === userId);
+
+      if(playerFound) return players;
+
+      return [...players, data];
+    });
+  });
+
 
   // ------ WAITING ROOM ---------------
   if(gameState === 'WAITING') {
@@ -26,16 +51,13 @@ export default function gameRoom({ socket }) {
 
   // ------ BRIEFING CARD --------------
   if(gameState === 'START_GAME') {
-    return <BriefingCard 
-      {...{ socket, setGameState } }
-    />;
+    return <BriefingCard {...{ socket, setGameState } }/>;
   }
 
   // ------ GAME TABLE -----------------
   if(gameState === 'ROUND_ONE') {
     return <GameTable 
-      {...{ socket, setGameState, problemSet, setProblemSet } }
-    />;
+      {...{ socket, setGameState, problemSet, setProblemSet } }/>;
   }
 
   if(gameState === 'ROUND_OVER') {
@@ -87,19 +109,13 @@ function WaitingRoom({
   // socket listeners
   if(socket) {
     socket.on('START_GAME_RESULTS', setGameState);
-    socket.on('JOIN_RESULTS', data => {
-      const { userId, nickname } = data;
-
-      const playerData = { userId, nickname };
-
-      setPlayers(players => players.push(playerData));
-    });
   }
 
   return (
     <>
     
       <p>Waiting for players</p>
+      <p>{roomKey}</p>
       <button
         style={{ visibility: isHost ? 'visible' : 'hidden' }}
         onClick={startGame}
@@ -198,7 +214,7 @@ function GameTable({ socket, setGameState, problemSet, setProblemSet }) {
     });
 
     setAnswer('');
-
+    if(counter === problemSet.length - 1) return;
     if(counter < problemSet.length - 1) increment();
   };
 
@@ -222,7 +238,7 @@ function GameTable({ socket, setGameState, problemSet, setProblemSet }) {
       }
 
       <div
-        dangerouslySetInnerHTML={{ __html: problemSet[counter].mml }}
+        dangerouslySetInnerHTML={{ __html: problemSet[counter]?.mml }}
       ></div>
 
       <form onSubmit={checkAnswer}>

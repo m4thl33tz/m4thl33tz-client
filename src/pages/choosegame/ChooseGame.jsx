@@ -12,16 +12,23 @@ const ChooseGame = ({ socket }) => {
     alert('You will be redirected to the Academic Room');
   };
   const createRoom = () => {
-    socket.emit('CREATE_ROOM', { nickname });
-    
-    
-    //socket stuff that makes a room and returns the name of the code
-    // history.push(/gameroom/${roomKey})
+    socket.isHost = true;
     history.push('/gameroom');
   };
 
   const joinRoom = () => {
-    alert(`You will be JOINING Game Room: ${roomKey}`);
+    history.push('/gameroom');
+  };
+
+  const updateNickname = ({ target }) => {
+    socket.nickname = target.value;
+    setNickname(target.value);
+  };
+
+  const updateRoomKey = ({ target }) => {
+    socket.roomKey = target.value;
+    console.log(target.value, socket.roomKey);
+    setRoomKey(target.value);
   };
 
   return (
@@ -44,7 +51,7 @@ const ChooseGame = ({ socket }) => {
               name="nickname"
               type="text"
               value={nickname}
-              onChange={e => setNickname(e.target.value)}
+              onChange={updateNickname}
               placeholder="What's ya name?" />
           </div>
         </div>
@@ -61,7 +68,7 @@ const ChooseGame = ({ socket }) => {
             name="join-room"
             type="text"
             value={roomKey}
-            onChange={e => setRoomKey(e.target.value)}
+            onChange={updateRoomKey}
             placeholder="Enter Room Code Here" />
           <button 
             onClick={joinRoom}>
