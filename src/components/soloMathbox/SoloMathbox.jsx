@@ -4,16 +4,14 @@ import styles from './SoloMathbox.css';
 
 
 
-const SoloMathbox = ({  mml, checkAnswer, updateAnswer }) => {
+const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
   //isCorrect will be used to change styles based on true or false
 
-
-  const [answer, setAnswer] = useState('');
   
   return (
     <div className={styles.soloMathBox}>
       <div className={styles.problemString}>
-        <p>a problemString </p>
+        <p>equation will show below</p>
       </div>
       <div className={styles.equationWrapper}>
         <span 
@@ -37,8 +35,7 @@ const SoloMathbox = ({  mml, checkAnswer, updateAnswer }) => {
 
 SoloMathbox.propTypes = {
   answer: PropTypes.string.isRequired,
-  MML: PropTypes.string.isRequired,
-  problemString: PropTypes.string.isRequired,
+  mml: PropTypes.string.isRequired,
   checkAnswer: PropTypes.bool,
   updateAnswer: PropTypes.func.isRequired,
 };
