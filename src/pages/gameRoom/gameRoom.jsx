@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 // import { WAITING, START_GAME } from '../../constants/gameEvents';
 
+import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
+import styles from './gameRoom.css';
+
 export default function gameRoom({ socket }) {
   const [gameState, setGameState] = useState('WAITING');
   const [players, setPlayers] = useState([]);
@@ -44,133 +47,30 @@ export default function gameRoom({ socket }) {
     });
   });
 
+  let renderedComponent;
 
-  // ------ WAITING ROOM ---------------
-  if(gameState === 'WAITING') {
-    return <WaitingRoom 
-      {...{ socket, roomKey, setGameState, setPlayers, players, isHost } }
-    />;
-  }
-
-  // ------ BRIEFING CARD --------------
-  if(gameState === 'START_GAME') {
-    return <BriefingCard {...{ socket, setGameState } }/>;
-  }
-
-  // ------ GAME TABLE -----------------
-  if(gameState === 'ROUND_ONE') {
-    return <GameTable 
-      {...{ socket, setGameState, problemSet, setProblemSet } }/>;
-  }
-
-  if(gameState === 'ROUND_OVER') {
-    return <GameOver socket={socket}/>;
-  }
-}
-
-
-
-
-
-
-
-
-function WaitingRoom({ 
-  socket, 
-  roomKey, 
-  setGameState, 
-  players, 
-  isHost 
-}) {
-  // Waiting Room State
-  const [gameOptions, setGameOptions] = useState({
-    operand: 'arithmetic',
-    operator: 'addition',
-    difficulty: 'easy'
-  });
-
-  // Handlers
-  const startGame = () => {
-    socket.emit('START_GAME', roomKey);
-  };
-
-  const updateOptions = event => {
-    event.preventDefault();
-
-    setGameOptions(gameOptions => ({
-      ...gameOptions,
-      [event.target.id]: event.target.value
-    }));
-  };
-
-  // Send updated game options to the back end
-  useEffect(() => {
-    if(socket) socket.emit('GAME_OPTIONS', { ...gameOptions, roomKey });
-  }, [gameOptions]);
-
-  // socket listeners
-  if(socket) {
-    socket.on('START_GAME_RESULTS', setGameState);
+  switch(gameState) {
+    case 'WAITING':
+      renderedComponent = <WaitingRoom 
+        {...{ socket, roomKey, setGameState, setPlayers, players, isHost } }/>;
+      break;
+    case 'START_GAME':
+      renderedComponent = <BriefingCard {...{ socket, setGameState } }/>;
+      break;
+    case 'ROUND_ONE':
+      renderedComponent = <GameTable 
+        {...{ socket, setGameState, problemSet, setProblemSet } }/>;
+      break;
+    case 'ROUND_OVER':
+      renderedComponent = <GameOver socket={socket}/>;
+      break;
+    default:
+      renderedComponent = <div>Something is not right!</div>;
+      break;
   }
 
   return (
-    <>
-    
-      <p>Waiting for players</p>
-      <p>{roomKey}</p>
-      <button
-        style={{ visibility: isHost ? 'visible' : 'hidden' }}
-        onClick={startGame}
-      >Start Game</button>
-
-
-      {
-        players.map(player => {
-          return (
-            <p key={player.userId}>{player.nickname}</p>
-          );
-        })
-      }
-
-
-      <form
-        style={{ visibility: isHost ? 'visible' : 'hidden' }}
-        onChange={updateOptions}
-      >
-
-        <label htmlFor="operand">Operand: </label>
-        <select
-          id="operand"
-          defaultValue="arithmetic"
-        >
-          <option value="arithmetic">Arithmetic</option>
-        </select>
-
-        <label htmlFor="operator">Operator: </label>
-        <select 
-          id="operator" 
-          defaultValue="addition"
-        >
-          <option value="addition">Addition</option>
-          <option value="multiplication">Multiplication</option>
-          <option value="subtraction">Subtraction</option>
-          <option value="division">Division</option>
-        </select>
-
-        <label htmlFor="difficulty">Difficulty: </label>
-        <select 
-          id="difficulty" 
-          defaultValue="easy"
-        >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-
-      </form>
-
-
-    </>
+    <div className={styles.gameRoom}>{renderedComponent}</div>
   );
 }
 
