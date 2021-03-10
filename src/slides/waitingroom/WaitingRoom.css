@@ -1,0 +1,65 @@
+.gameRoom {
+  height: 100vh;
+  font-size: 30px;
+  font-family: 'Architects Daughter', cursive;
+  background: rgba(50, 20, 66, 0.8);
+}
+
+.gameRoom::before {
+  content: '';
+  background-image: url(../../assets/math-wallpaper-chalkboard.jpg);
+  background-size: cover;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  opacity: 1;
+  z-index: -1;
+}
+
+.waitingRoom {
+  border: whitesmoke solid;
+  border-radius: 8%;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  border: solid red;
+  .homeButton {
+    margin: 10px;
+  }
+  a {
+    text-decoration: none;
+    color: whitesmoke;
+  }
+  h1 {
+    margin: auto;
+    color: whitesmoke;
+  }
+}
+
+.waitingContent {
+  border: burlywood solid;
+  margin-top: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.waitingLeft {
+  border: solid yellow;
+  width: 63%;
+}
+.waitingRight {
+  border: solid rgb(98, 0, 255);
+  width: 37%;
+}

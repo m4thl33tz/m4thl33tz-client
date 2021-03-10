@@ -8,6 +8,7 @@ import PracticeRoom from '../../pages/practiceroom/PracticeRoom';
 import AcademicRoom from '../../pages/academicroom/AcademicRoom';
 import SplashPage from '../../pages/splashpage/SplashPage';
 import ChooseGame from '../../pages/choosegame/ChooseGame';
+import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
 
 export default function App() {
   const theme = createMuiTheme({
@@ -37,6 +38,8 @@ export default function App() {
           <Route path="/practiceroom" component={PracticeRoom} />
           <Route path="/academicroom" component={AcademicRoom} />
           <Route path="/choosegame" component={ChooseGame} />
+          <Route path="/waitingroom" component={WaitingRoom} />
+
         </Switch>
       </ThemeProvider>
     </Router>
