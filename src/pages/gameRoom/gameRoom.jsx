@@ -7,10 +7,10 @@ export default function gameRoom({ socket }) {
   const [players, setPlayers] = useState([]);
   const [problemSet, setProblemSet] = useState([]);
 
-  const [isHost, setIsHost] = useState(false); // Necessary?
+  // const [isHost, setIsHost] = useState(false);
   const [roomKey, setRoomKey] = useState('');
 
-  const { nickname } = socket;
+  const { nickname, isHost } = socket;
 
   useEffect(() => {
     if(socket.isHost) socket.emit('CREATE_ROOM', { nickname });
@@ -22,12 +22,15 @@ export default function gameRoom({ socket }) {
     }
   }, []);
   
-  socket.on('ROOM_KEY', ({ roomKey, isHost }) => {
-    setRoomKey(roomKey);
-    setIsHost(isHost);
+  socket.on('PROBLEM_SET', problems => {
+    setProblemSet(problems);
+    console.log('PROBLEMS', problems);
   });
 
-  socket.on('PROBLEM_SET', problems => setProblemSet(problems));
+  socket.on('ROOM_KEY', ({ roomKey }) => {
+    setRoomKey(roomKey);
+    // setIsHost(isHost);
+  });
 
   socket.on('JOIN_RESULTS', data => {
     const { userId } = data;
@@ -76,7 +79,6 @@ function WaitingRoom({
   socket, 
   roomKey, 
   setGameState, 
-  setPlayers, 
   players, 
   isHost 
 }) {
@@ -175,10 +177,9 @@ function WaitingRoom({
 
 
 
-function BriefingCard({ socket, setGameState, setProblemSet }) {
+function BriefingCard({ socket, setGameState }) {
   if(socket) {
     socket.on('ROUND_ONE', setGameState);
-    socket.on('PROBLEM_SET', setProblemSet);
   }
 
   return (
