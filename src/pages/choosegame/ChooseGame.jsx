@@ -1,17 +1,23 @@
 import React,  { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './ChooseGame.css';
 
-const ChooseGame = () => {
-  const [roomKey, setRoomKey] = useState(null);
-  const [nickname, setNickname] = useState(null);
+const ChooseGame = ({ socket }) => {
+  const history = useHistory();
+
+  const [roomKey, setRoomKey] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const toAcademicRoom = () => {
     alert('You will be redirected to the Academic Room');
   };
   const createRoom = () => {
+    socket.emit('CREATE_ROOM', { nickname });
+    
+    
     //socket stuff that makes a room and returns the name of the code
     // history.push(/gameroom/${roomKey})
-    alert('You will be redirected to your new Game Room');
+    history.push('/gameroom');
   };
 
   const joinRoom = () => {

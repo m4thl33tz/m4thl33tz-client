@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import CssBaseLine from '@material-ui/core/CssBaseline';
@@ -8,10 +8,17 @@ import PracticeRoom from '../../pages/practiceroom/PracticeRoom';
 import AcademicRoom from '../../pages/academicroom/AcademicRoom';
 import SplashPage from '../../pages/splashpage/SplashPage';
 import ChooseGame from '../../pages/choosegame/ChooseGame';
+import GameRoom from '../../pages/gameRoom/gameRoom';
+
+import { io } from 'socket.io-client';
 import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
 import GameTable from '../../slides/gametable/GameTable';
 
+const URL = 'http://localhost:7890';
+
 export default function App() {
+  const [socket, setSocket] = useState(null);
+
   const theme = createMuiTheme({
     typography: {
       fontFamily: 'sans-serif',
@@ -30,6 +37,13 @@ export default function App() {
     },
   });
 
+  useEffect(() => {
+    const socket = io(URL);
+
+    setSocket(socket);
+    return () => socket.close();
+  }, []);
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -38,10 +52,22 @@ export default function App() {
           <Route exact path="/" component={SplashPage} />
           <Route path="/practiceroom" component={PracticeRoom} />
           <Route path="/academicroom" component={AcademicRoom} />
-          <Route path="/choosegame" component={ChooseGame} />
+          <Route 
+            path="/choosegame"
+            render={routerProps => <ChooseGame
+              {...routerProps} 
+              socket={socket}
+            />}
+          />
+          <Route 
+            path="/gameroom" 
+            render={routerProps => <GameRoom 
+              {...routerProps}
+              socket={socket}
+            />}
+          />
           <Route path="/waitingroom" component={WaitingRoom} />
           <Route path="/gametable" component={GameTable} />
-
         </Switch>
       </ThemeProvider>
     </Router>
