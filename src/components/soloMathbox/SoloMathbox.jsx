@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './SoloMathBox.css';
 
-const SoloMathbox = ({ equation, problemString, isCorrect }) => {
+const SoloMathbox = ({ answer, equation, problemString, checkAnswer, updateAnswer }) => {
   //isCorrect will be used to change styles based on true or false
   return (
     <div className={styles.soloMathBox}>
@@ -10,18 +10,26 @@ const SoloMathbox = ({ equation, problemString, isCorrect }) => {
         <p>a problemString {problemString}</p>
       </div>
       <div className={styles.equationWrapper}>
-        <span className={styles.equation}>an Equation{equation}</span>
-        <input className={styles.myAnswer} 
-          placeholder="answer here..." />
+        <span className={styles.equation}>{equation}{answer}</span>
+        <form onSubmit={checkAnswer} >
+          <input
+            value={answer}
+            onChange={updateAnswer}
+            className={styles.myAnswer}
+            placeholder="answer here..." />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );
 };
 
 SoloMathbox.propTypes = {
+  answer: PropTypes.string.isRequired,
   equation: PropTypes.string.isRequired,
   problemString: PropTypes.string.isRequired,
-  isCorrect: PropTypes.boolean
+  checkAnswer: PropTypes.bool,
+  updateAnswer: PropTypes.func.isRequired,
 };
 
 export default SoloMathbox;

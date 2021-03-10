@@ -98,7 +98,7 @@ export default function Home() {
                 __html: mathHTML,
               }}
             ></div> */}
-            <div style={{ height: '200px', width: '300px', border: 'solid 4px purple'}}>
+            <div style={{ height: '200px', width: '300px', border: 'solid 4px purple' }}>
               {problem.equation}
             </div>
             <div

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AcademicFooter from '../../components/academicFooter/AcademicFooter';
 import AnswerButton from '../../components/answerButton/AnswerButton';
 import CalcButton from '../../components/calcButton/CalcButton';
@@ -6,6 +6,7 @@ import Feedback from '../../components/feedback/feedback';
 import ScoreCard from '../../components/scoreCard/ScoreCard';
 import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
+import { getProblems } from '../../services/math-api';
 // import PropTypes from 'prop-types'
 import styles from './Academicroom.css';
 // import './Academicroom.scss';
@@ -14,30 +15,72 @@ import styles from './Academicroom.css';
 
 const AcademicRoom = (props) => {
   const [feedback, setFeedback] = useState('');
-  const [equation, setEquation] = useState('');
   const [problemString, setProblemString] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
   const [currentScore, setCurrentScore] = useState(0);
   const [allTimeScore, setAllTimeScore] = useState(0);
+  const [problems, setProblems] = useState([]);
+  const [answer, setAnswer] = useState('');
+  const [operationType, setOperationType] = useState('addition');
+  const [difficulty, setDifficulty] = useState('easy');
+  const [counter, setCounter] = useState(0);
 
   //answerButton functions
   const submitAnswer = () => alert('clicked submit answer');
   const skipProblem = () => alert('clicked skip problem');
   const showSolution = () => alert('clicked show solution');
+
+  const updateType = ({ target }) => {
+    setOperationType(target.value);
+  };
+
+  const updateDifficulty = ({ target }) => {
+    setDifficulty(target.value);
+  };
+
+  const updateAnswer = ({ target }) => {
+    setAnswer(target.value);
+  };
   
+  const increment = () => {
+    setCounter((counter) => counter + 1);
+  };
+
+  const checkAnswer = (event) => {
+    event.preventDefault();
+    const parsedAnswer = Number(answer);
+    console.log(parsedAnswer);
+
+    const isCorrect = parsedAnswer === problems[counter].solution;
+    return isCorrect;
+  };
+  
+  useEffect(() => {
+    getProblems({ type: operationType, difficulty }).then((problems) => {
+      setProblems(problems);
+    });
+  }, []);
+  
+  const problem = problems[counter];
+
+  console.log('counter', counter);
+
+  console.log('problem', problem?.equation);
 
   return (
     <div className={styles.academicRoom}>
       <main className={styles.academicContainer}>
         <div className={styles.problemColumn}>
           <div className={styles.responseContainer}>
-            <Feedback feedback={feedback} />          
+            <Feedback feedback={feedback} />
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              equation={equation}
+              equation={problems[counter]?.equation}
+              answer={answer}
               problemString={problemString}
-              isCorrect={isCorrect}
+              updateAnswer={updateAnswer}
+              checkAnswer={checkAnswer}
             />
           </div>
           <div className={styles.inputContainer}>
@@ -70,7 +113,12 @@ const AcademicRoom = (props) => {
           <ScratchPad />
         </div>
       </main>
-      <AcademicFooter />
+      <AcademicFooter
+        updateType={updateType}
+        updateDifficulty={updateDifficulty}
+        difficulty={difficulty}
+        operationType={operationType}
+      />
     </div>
   );
 };
