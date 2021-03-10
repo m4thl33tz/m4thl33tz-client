@@ -14,7 +14,7 @@ import { io } from 'socket.io-client';
 import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
 import GameTable from '../../slides/gametable/GameTable';
 
-const URL = 'http://localhost:7890';
+const serverUrl = process.env.SERVER_URL;
 
 export default function App() {
   const [socket, setSocket] = useState(null);
@@ -38,7 +38,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    const socket = io(URL);
+    const socket = io(serverUrl);
 
     setSocket(socket);
     return () => socket.close();
