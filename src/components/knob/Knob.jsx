@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './knob.css';
+import styles from './Knob.css';
 
 const Knob = ({ type }) => {
   return (

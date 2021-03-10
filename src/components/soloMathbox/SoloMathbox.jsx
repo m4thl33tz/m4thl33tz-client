@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './SoloMathBox.css';
+import styles from './SoloMathbox.css';
 
 
 

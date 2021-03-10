@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AcademicFooter from '../../components/academicFooter/AcademicFooter';
 import AnswerButton from '../../components/answerButton/AnswerButton';
 import CalcButton from '../../components/calcButton/CalcButton';
-import Feedback from '../../components/feedback/feedback';
+import Feedback from '../../components/feedback/Feedback';
 import ScoreCard from '../../components/scoreCard/ScoreCard';
 import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
