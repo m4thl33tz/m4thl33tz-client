@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './SoloMathBox.css';
 
-const SoloMathbox = ({ answer, equation, problemString, checkAnswer, updateAnswer }) => {
+
+
+const SoloMathbox = ({  mml, checkAnswer, updateAnswer }) => {
   //isCorrect will be used to change styles based on true or false
+
+
+  const [answer, setAnswer] = useState('');
+  
   return (
     <div className={styles.soloMathBox}>
       <div className={styles.problemString}>
-        <p>a problemString {problemString}</p>
+        <p>a problemString </p>
       </div>
       <div className={styles.equationWrapper}>
-        <span className={styles.equation}>{equation}{answer}</span>
+        <span 
+          className={styles.equation}
+          dangerouslySetInnerHTML={{
+            __html: mml,
+          }}></span>
+        <span>{answer}</span>
         <form onSubmit={checkAnswer} >
           <input
             value={answer}
@@ -26,7 +37,7 @@ const SoloMathbox = ({ answer, equation, problemString, checkAnswer, updateAnswe
 
 SoloMathbox.propTypes = {
   answer: PropTypes.string.isRequired,
-  equation: PropTypes.string.isRequired,
+  MML: PropTypes.string.isRequired,
   problemString: PropTypes.string.isRequired,
   checkAnswer: PropTypes.bool,
   updateAnswer: PropTypes.func.isRequired,

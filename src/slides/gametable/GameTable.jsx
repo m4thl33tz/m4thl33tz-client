@@ -8,15 +8,13 @@ import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
 import { getProblems } from '../../services/math-api';
 // import PropTypes from 'prop-types'
-import styles from './Academicroom.css';
-// import './Academicroom.scss';
+import styles from './GameTable.css';
 
 
 
-const AcademicRoom = (props) => {
-  const [answer, setAnswer] = useState('');
+const GameTable = (props) => {
   const [feedback, setFeedback] = useState('');
-  const [problemString, setProblemString] = useState('');
+  const [answer, setAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
   const [currentScore, setCurrentScore] = useState(0);
   const [allTimeScore, setAllTimeScore] = useState(0);
@@ -25,6 +23,8 @@ const AcademicRoom = (props) => {
   const [operationType, setOperationType] = useState('addition');
   const [difficulty, setDifficulty] = useState('easy');
   const [counter, setCounter] = useState(0);
+  const [mml, setMml] = useState(null);
+  
 
   //answerButton functions
   const submitAnswer = () => alert('clicked submit answer');
@@ -65,23 +65,22 @@ const AcademicRoom = (props) => {
   const problem = problems[counter];
 
   console.log('counter', counter);
-
-  console.log('problem', problem?.equation);
+  console.log('problem', problem);
 
   return (
-    <div className={styles.academicRoom}>
-      <main className={styles.academicContainer}>
+    <div className={styles.gameTable}>
+      <main className={styles.gameTableContainer}>
         <div className={styles.problemColumn}>
           <div className={styles.responseContainer}>
             <Feedback feedback={feedback} />
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              equation={problems[counter]?.equation}
-              answer={answer}
-              problemString={problemString}
+              mml={problems[counter]?.mml}
+              // problemString={problemString}
               updateAnswer={updateAnswer}
               checkAnswer={checkAnswer}
+              answer={answer}
             />
           </div>
           <div className={styles.inputContainer}>
@@ -124,8 +123,8 @@ const AcademicRoom = (props) => {
   );
 };
 
-// AcademicRoom.propTypes = {
+// GameTable.propTypes = {
 
 // }
 
-export default AcademicRoom;
+export default GameTable;
