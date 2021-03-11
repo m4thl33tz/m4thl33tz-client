@@ -16,6 +16,11 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
   const [feedback, setFeedback] = useState('');
   const [currentScore, setCurrentScore] = useState(0);
 
+  const [timeLeft, setTimeLeft] = useState(null);
+
+  socket.on('TIMER', setTimeLeft);
+  
+
   const increment = () => {
     setCounter(counter => counter + 1);
   };
@@ -60,7 +65,7 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
       <main className={styles.gameTableContainer}>
         <div className={styles.problemColumn}>
           <div className={styles.timer}>
-            <p>60</p>
+            <p>{timeLeft || ''}</p>
           </div>
           <div className={styles.responseContainer}>
             <p>Problem {counter + 1} out of {problemSet.length}</p>

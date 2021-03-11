@@ -25,7 +25,7 @@ export default function gameRoom({ socket }) {
       socket.emit('UPDATE_PLAYERS', { roomKey: socket.roomKey, nickname });
     }
   }, []);
-  
+
   socket.on('PROBLEM_SET', problems => {
     setProblemSet(problems);
     console.log('PROBLEMS', problems);
