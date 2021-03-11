@@ -10,7 +10,7 @@ import styles from './GameTable.css';
 
 
 
-const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
+const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProblemSet }) => {
   const [counter, setCounter] = useState(0);
   const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -36,6 +36,10 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
 
     const answer = Number(event.target[0].value);
     const isCorrect = answer === problemSet[counter].solution;
+
+    const points = Number(isCorrect) * 10;
+
+    socket.emit('UPDATE_SCORE', { roomKey, points });
 
     const marquee = isCorrect ? 'Correct!' : 'Incorrect!';
 
@@ -104,21 +108,13 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
         <div className={styles.answerColumn}>
           <div className={styles.scoreChart}>
             <ul>
-              <li>
-                <span>Sam: </span><span>100000</span>
-              </li>
-              <li>
-                <span>Jonathan: </span><span>90</span>
-              </li>
-              <li>
-                <span>Justin: </span><span>80</span>
-              </li>
-              <li>
-                <span>David: </span><span>60</span>
-              </li>
-              <li>
-                <span>Andrew: </span><span>50</span>
-              </li>
+              {
+                players.map(p => {
+                  return (
+                    <li key={p.userId}>{p.nickname} {p.points}</li>
+                  );
+                })
+              }
             </ul>
           </div>
           <ScratchPad />

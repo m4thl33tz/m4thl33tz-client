@@ -21,7 +21,6 @@ export default function gameRoom({ socket }) {
 
     else {
       setRoomKey(socket.roomKey);
-      console.log('JOINED');
       socket.emit('JOIN_ROOM', { roomKey: socket.roomKey, nickname });
       socket.emit('UPDATE_PLAYERS', { roomKey: socket.roomKey, nickname });
     }
@@ -29,7 +28,6 @@ export default function gameRoom({ socket }) {
     // Socket Listeners
     socket.on('PROBLEM_SET', problems => {
       setProblemSet(problems);
-      console.log('PROBLEMS', problems);
     });
   
     socket.on('ROOM_KEY', ({ roomKey }) => {
@@ -37,14 +35,30 @@ export default function gameRoom({ socket }) {
     });
   
     socket.on('JOIN_RESULTS', data => {
-      const { userId } = data;
+      const newPlayers = data.filter(player => {
+        const { userId } = player;
+
+        const playerExists = players.find(p => p.userId === userId);
+        if(!playerExists) return true;
+
+        return false;
+      });
   
+      setPlayers(players => [...players, ...newPlayers]);
+    });
+
+    socket.on('UPDATE_SCORE_RESULTS', ({ userId, points }) => {
       setPlayers(players => {
-        const playerFound = players.find(p => p.userId === userId);
-  
-        if(playerFound) return players;
-  
-        return [...players, data];
+        let copy = [...players];
+        const player = copy.find(p => p.userId === userId);
+
+        player.points = points;
+
+        copy = copy.sort((a, b) => b.points - a.points);
+
+        console.log(copy);
+
+        return copy;
       });
     });
   }, []);
@@ -63,7 +77,7 @@ export default function gameRoom({ socket }) {
       break;
     case 'ROUND_ONE':
       renderedComponent = <GameTable
-        {...{ socket, setGameState, problemSet, setProblemSet } }/>;
+        {...{ socket, roomKey, players, setGameState, problemSet, setProblemSet } }/>;
       break;
     case 'ROUND_OVER':
       renderedComponent = <GameOver socket={socket}/>;
