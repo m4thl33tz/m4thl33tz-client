@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 // import { WAITING, START_GAME } from '../../constants/gameEvents';
 
 import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
+import GameTable from '../../slides/gametable/GameTable';
 import styles from './gameRoom.css';
 
 export default function gameRoom({ socket }) {
@@ -58,7 +59,7 @@ export default function gameRoom({ socket }) {
       renderedComponent = <BriefingCard {...{ socket, setGameState } }/>;
       break;
     case 'ROUND_ONE':
-      renderedComponent = <GameTable 
+      renderedComponent = <GameTable
         {...{ socket, setGameState, problemSet, setProblemSet } }/>;
       break;
     case 'ROUND_OVER':
@@ -86,85 +87,6 @@ function BriefingCard({ socket, setGameState }) {
     <p>Game is Starting!</p>
   );
 }
-
-
-
-
-function GameTable({ socket, setGameState, problemSet, setProblemSet }) {
-  const [counter, setCounter] = useState(0);
-  const [answer, setAnswer] = useState('');
-
-  const increment = () => {
-    setCounter(counter => counter + 1);
-  };
-
-  const updateAnswer = ({ target }) => {
-    setAnswer(target.value);
-  };
-
-  const checkAnswer = event => {
-    event.preventDefault();
-
-    const answer = Number(event.target[0].value);
-    const isCorrect = answer === problemSet[counter].solution;
-
-    setProblemSet(problems => {
-      problems[counter].isCorrect = isCorrect;
-      problems[counter].answer = answer;
-      return problems;
-    });
-
-    setAnswer('');
-    if(counter === problemSet.length - 1) return;
-    if(counter < problemSet.length - 1) increment();
-  };
-
-
-  if(socket) {
-    socket.on('ROUND_OVER', setGameState);
-  }
-
-  return (
-    <>
-      <p>It is the first round!</p>
-
-      <p>Problem {counter + 1} out of {problemSet.length}</p>
-
-      {
-        counter > 0 ?
-          problemSet[counter - 1].isCorrect
-            ? <p>Correct!</p> 
-            : <p>Incorrect!</p>
-          : ''
-      }
-
-      <div
-        dangerouslySetInnerHTML={{ __html: problemSet[counter]?.mml }}
-      ></div>
-
-      <form onSubmit={checkAnswer}>
-        <label>Answer: </label>
-        <input 
-          onChange={updateAnswer}
-          id="problem" 
-          type="number"
-          value={answer}
-        />
-        <button type="submit">Answer!</button>
-      </form>
-
-      <div>
-        <button 
-          onClick={increment}
-          disabled={counter === problemSet.length - 1}
-        >Next</button>
-      </div>
-
-    </>
-  );
-}
-
-
 
 
 function GameOver({ socket }) {

@@ -5,7 +5,7 @@ import styles from './Feedback.css';
 const Feedback = ({ feedback, counter, setLength }) => {
   return (
     <div className={styles.feedbackItem}>
-      <h3>{feedback || 'Welcome!'}</h3>
+      <h3>{counter === 0 ? 'Welcome' : feedback}</h3>
       <h3>{counter + 1}/{setLength}</h3>
     </div>
   );

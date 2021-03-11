@@ -10,51 +10,47 @@ import styles from './GameTable.css';
 
 
 
-const GameTable = (props) => {
-  const [feedback, setFeedback] = useState('Correct! or Nope');
-  const [answer, setAnswer] = useState('');
-  const [isCorrect, setIsCorrect] = useState(null);
-  const [currentScore, setCurrentScore] = useState(0);
-  const [problems, setProblems] = useState([]);
+const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
   const [counter, setCounter] = useState(0);
-  const [mml, setMml] = useState(null);
-  
+  const [answer, setAnswer] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [currentScore, setCurrentScore] = useState(0);
 
-  //answerButton functions
-  const submitAnswer = () => alert('clicked submit answer');
-  const skipProblem = () => alert('clicked skip problem');
-  const showSolution = () => alert('clicked show solution');
-
+  const increment = () => {
+    setCounter(counter => counter + 1);
+  };
 
   const updateAnswer = ({ target }) => {
     setAnswer(target.value);
   };
-  
-  const increment = () => {
-    setCounter((counter) => counter + 1);
-  };
 
-  const checkAnswer = (event) => {
+  const checkAnswer = event => {
     event.preventDefault();
-    const parsedAnswer = Number(answer);
-    console.log(parsedAnswer);
 
-    const isCorrect = parsedAnswer === problems[counter].solution;
-    return isCorrect;
+    const answer = Number(event.target[0].value);
+    const isCorrect = answer === problemSet[counter].solution;
+
+    const marquee = isCorrect ? 'Correct!' : 'Incorrect!';
+
+    setFeedback(() => {
+      return marquee;
+    });
+
+    setProblemSet(problems => {
+      problems[counter].isCorrect = isCorrect;
+      problems[counter].answer = answer;
+      return problems;
+    });
+
+    setAnswer('');
+    if(counter === problemSet.length - 1) return;
+    if(counter < problemSet.length - 1) increment();
   };
-  
-  // useEffect(() => {
-  //   //logic for getting problems from the already-gathered API
 
-  //   // getProblems({ type: operationType, difficulty }).then((problems) => {
-  //   //   setProblems(problems);
-  //   });
-  // }, []);
-  
-  const problem = problems[counter];
 
-  console.log('counter', counter);
-  console.log('problem', problem);
+  if(socket) {
+    socket.on('ROUND_OVER', setGameState);
+  }
 
   return (
 
@@ -67,11 +63,16 @@ const GameTable = (props) => {
             <p>60</p>
           </div>
           <div className={styles.responseContainer}>
-            <Feedback feedback={feedback} />
+            <p>Problem {counter + 1} out of {problemSet.length}</p>
+            <Feedback 
+              feedback={feedback}
+              counter={counter}
+              setLength={problemSet.length}
+            />
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              mml={problems[counter]?.mml}
+              mml={problemSet[counter]?.mml}
               // problemString={problemString}
               updateAnswer={updateAnswer}
               checkAnswer={checkAnswer}
@@ -87,7 +88,7 @@ const GameTable = (props) => {
             <div className={styles.answerButtonWrapper}>
               <AnswerButton
                 text="submit"
-                buttonFunction={submitAnswer}
+                buttonFunction={checkAnswer}
               />
               
             </div>
