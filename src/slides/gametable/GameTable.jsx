@@ -60,6 +60,11 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
 
     <div className={styles.gameTable}>
       <main className={styles.gameTableContainer}>
+        <video className={styles.backgroundVideo} autoPlay muted loop
+        >
+          <source src="./src/assets/approaching_equations.mp4"
+            type="video/mp4"></source>
+        </video> 
         <div className={styles.problemColumn}>
           <div className={styles.timer}>
             <p>{timeLeft || ''}</p>

@@ -34,7 +34,7 @@ const ChooseGame = ({ socket }) => {
   return (
 
     <div className={styles.chooseGameContainer}>
-      <section>
+      <section className={styles.section}>
         <div className={styles.academicCard}>
           <button 
             onClick={toAcademicRoom}>
@@ -42,7 +42,7 @@ const ChooseGame = ({ socket }) => {
           </button>
         </div>
       </section>
-      <section>
+      <section className={styles.section}>
         <div className={styles.competitiveCard}>
           <h2>How about a friendly mAthl33tz Competition</h2>
           <div className={styles.nickname}>
