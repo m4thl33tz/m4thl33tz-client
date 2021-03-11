@@ -34,6 +34,10 @@ const ChooseGame = ({ socket }) => {
   return (
 
     <div className={styles.chooseGameContainer}>
+      <video className={styles.backgroundVideo} autoPlay muted loop>
+        <source src="./src/assets/approaching_equations.mp4"
+          type="video/mp4"></source>
+      </video> 
       <section className={styles.section}>
         <div className={styles.academicCard}>
           <button 
@@ -79,5 +83,7 @@ const ChooseGame = ({ socket }) => {
     </div>
   );
 }
+
+
 
 export default ChooseGame;

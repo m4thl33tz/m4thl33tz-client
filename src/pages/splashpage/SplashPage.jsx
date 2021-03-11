@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayer } from '../../actions/userActions';
 import { getUser } from '../../selectors/userSelector';
@@ -7,9 +8,17 @@ import { addNewPoints, checkUser, addPlayer } from '../../utils/checkAndCreate';
 import styles from './SplashPage.css';
 import Anime from 'react-anime';
 
+
+
 const SplashPage = () => {
+  const [loading, setLoading] = useState(true)
+
+
+  const history = useHistory();
+
   //this is grabbing the info we need from  auth0
-  const { loginWithPopup, user, logout } = useAuth0();
+  const { loginWithPopup, user, isAuthenticated } = useAuth0();
+  //possibly remove (REDUX)
   const dispatch = useDispatch();
 
   // after the user logs in or signs up with AUTH0 the useEffect
@@ -17,60 +26,104 @@ const SplashPage = () => {
   //if not the info from AUTh0 is use to create a user's info.
   useEffect(async() => {
     if (user) {
+  
       const isUser = await checkUser(user);
       if(!isUser) {
         await addPlayer(user);
-        await addNewPoints(user); 
-      }
-      return;
+        await addNewPoints(user);;
+      } return;
     }
   }, [user]);
+
+  useEffect(() => {
+    setTimeout(setLoading(false), 6000);
+  }, []);
+
+  // possibly remove
   const currentUser = useSelector(getUser) || {};
-
-
 
   
 
-  const buttonPhrase = 'm4thl33tz';
-  const leavePhrase = 'Why doncha\' L0g Out';
+  const m4thPhraseOne = 'm4thl33te';
+  const readyPhrase = 'Are you Ready to be a';
+  const getStarted = 'let\'s get started';
 
 
-  // spreads the phrase and wrapps each char in a span
-  const wrappedWelcomeLetters = [...buttonPhrase].map((char, i) => (
-    <span key={i} className="letter">{char}</span>
-));
+  // spreads the phrase and wraps each char in a span
+  const wrappedWelcomeLetters = [...m4thPhraseOne].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
 
-  const wrappedLogoutLetters = [...leavePhrase].map((char, i) => (
-    <span key={i} className="letter">{char}</span>
-));
+  const wrappedReadyLetters = [...readyPhrase].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
 
-  return (
+  const wrappedGetStarted = [...getStarted].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
+
+
+  if (loading) {
+    return (
+      <div>loading!!!!!!!</div> 
+    )
+  } if (!isAuthenticated && !loading) {
+    return (
+      <div className={styles.splashContainer}>
+        <video className={styles.backgroundVideo} autoPlay muted loop>
+          <source src="./src/assets/approaching_equations.mp4"
+            type="video/mp4"></source>
+        </video> 
+        <div className={styles.backgroundOne}></div>
+        <div className={styles.backgroundTwo}></div>
+        <div className={styles.areYouReady}>
+          <Anime
+            loop={false}
+            scale={[1.3, 1]}
+            opacity={[0, 1]}
+            rotate={[-4, (el) => Math.random()* 6 - 3]}
+            translateX={[150, 0]}
+            translateY={[(el) => Math.random() * 50 - 25, 0]}
+            translateZ={0}
+            easing="easeOutBounce"
+            duration={600}
+            delay={(el, i) => (30*i)} 
+          >
+            {wrappedReadyLetters}
+          </Anime>
+        </div>
+        <div 
+          className={styles.m4thl33teOne}
+          onClick={() => loginWithPopup()}>
+          <Anime
+            loop={false}
+            scale={[4, 1.15]}
+            opacity={[0, 1]}
+            rotate={[5, (el) => Math.random()* 6 - 3]}
+            translateX={[0, 0]}
+            translateY={[(el) => Math.random() * 200 - 150, 0]}
+            translateZ={0}
+            easing="easeOutBounce"
+            duration={400}
+            delay={(el, i) => 
+              (3000 + (-40*i) + (40*wrappedWelcomeLetters.length))} 
+          >
+            {wrappedWelcomeLetters}
+          </Anime>
+        </div>
+
+      </div>
+    )
+           
+  } if (!loading && isAuthenticated) return (
     <div className={styles.splashContainer}>
+      <video className={styles.backgroundVideo} autoPlay muted loop>
+        <source src="./src/assets/approaching_equations.mp4"
+          type="video/mp4"></source>
+      </video> 
       <div className={styles.backgroundOne}></div>
       <div className={styles.backgroundTwo}></div>
-
-      <div 
-        className={styles.button}
-        onClick={() => loginWithPopup()}>
-        <Anime
-          loop={false}
-          scale={[4, 1]}
-          opacity={[0, 1]}
-          rotate={[5, (el) => Math.random()* 6 - 3]}
-          translateX={[-300, 0]}
-          translateY={[(el) => Math.random() * 200 - 150, 0]}
-          translateZ={0}
-          easing="easeOutBounce"
-          duration={1000}
-          delay={(el, i) => 
-            (1000 + (-40*i) + (40*wrappedWelcomeLetters.length))} 
-        >
-          {wrappedWelcomeLetters}
-        </Anime>
-      </div>
-      <div 
-        className={styles.buttontwo}
-        onClick={() => logout()}>
+      <div className={styles.getStarted}>
         <Anime
           loop={false}
           scale={[1.3, 1]}
@@ -81,13 +134,50 @@ const SplashPage = () => {
           translateZ={0}
           easing="easeOutBounce"
           duration={600}
-          delay={(el, i) => (3000 + 30*i)} 
+          delay={(el, i) => (30*i)} 
         >
-          {wrappedLogoutLetters}
+          {wrappedGetStarted}
         </Anime>
       </div>
+      <div 
+        className={styles.m4thl33teOne}
+        onClick={() => history.push("/choosegame")}
+
+      >
+        <Anime
+          loop={false}
+          scale={[4, 1.15]}
+          opacity={[0, 1]}
+          rotate={[5, (el) => Math.random()* 6 - 3]}
+          translateX={[0, 0]}
+          translateY={[(el) => Math.random() * 200 - 150, 0]}
+          translateZ={0}
+          easing="easeOutBounce"
+          duration={400}
+          delay={(el, i) => 
+            (2000 + (-40*i) + (40*wrappedWelcomeLetters.length))} 
+        >
+          {wrappedWelcomeLetters}
+        </Anime>
+      </div>
+
     </div>
   )
-}
+};
+
+{/* 
+const WriggleWrap = ({item}) => {
+  return (
+  <Anime
+    loop={true}
+    rotate={[(el) => Math.random()* 2 - 1,  (el) => Math.random()* 2 - 1]}
+    easing='easeInOutSine'
+    direction='alternate'
+    duration={800}
+    delay={3500}
+  >
+  </Anime>
+  )
+} */}
 
 export default SplashPage

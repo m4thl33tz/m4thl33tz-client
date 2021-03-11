@@ -7,6 +7,14 @@
   justify-content: center;
 }
 
+.backgroundVideo {
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  opacity: .3;
+  z-index: -1;
+  }
+
 .backgroundTwo {
   content: '';
   background-image: url(../../assets/math-wallpaper-chalkboard.jpg);
@@ -17,20 +25,21 @@
   left: 0px;
   position: absolute;
   opacity: 1;
-  z-index: -1;
+  z-index: -2;
 }
 
-.button {
+.m4thl33teOne {
   text-align: center;
   display: flex;
   flex-direction: row;
   font-size: 9rem;
   color: rgb(247, 228, 253);
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
-  filter: drop-shadow(0, 0, 10px, black)
+  text-shadow: 0 0 10px rgb(68, 27, 63);
+  cursor: pointer;
 }
 
-.buttontwo {
+.areYouReady {
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -39,7 +48,32 @@
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
 }
 
-.button .letter {
+.getStarted {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 3rem;
+  color: rgb(231, 176, 114);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
+}
+
+.m4thl33teOne .letter {
   display: inline-block;
   white-space: pre;
+}
+
+.areYouReady .letter {
+  display: inline-block;
+  white-space: pre;
+}
+
+.getStarted .letter {
+  display: inline-block;
+  white-space: pre;
+}
+
+@keyframes glow {
+  0% {filter: (drop-shadow( 0 0 0 red));}
+  50% {filter: (drop-shadow( 0 0 10px red));}
+  100% {filter: (drop-shadow( 0 0 0 red));}
 }
