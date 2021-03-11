@@ -25,15 +25,15 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
     }));
   };
 
+  // Socket Listeners
+  useEffect(() =>  {
+    socket.on('START_GAME_RESULTS', setGameState);
+  }, []);
+
   // Send updated game options to the back end
   useEffect(() => {
-    if(socket) socket.emit('GAME_OPTIONS', { ...gameOptions, roomKey });
+    socket.emit('GAME_OPTIONS', { ...gameOptions, roomKey });
   }, [gameOptions]);
-
-  // socket listeners
-  if(socket) {
-    socket.on('START_GAME_RESULTS', setGameState);
-  }
 
   const roster = players.map(player => {
     return (

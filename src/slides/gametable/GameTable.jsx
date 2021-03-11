@@ -15,11 +15,13 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
   const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState('');
   const [currentScore, setCurrentScore] = useState(0);
-
   const [timeLeft, setTimeLeft] = useState(null);
 
-  socket.on('TIMER', setTimeLeft);
-  
+  // Socket Listeners
+  useEffect(() => {
+    socket.on('TIMER', setTimeLeft);
+    socket.on('ROUND_OVER', setGameState);
+  });  
 
   const increment = () => {
     setCounter(counter => counter + 1);
@@ -51,11 +53,6 @@ const GameTable = ({ socket, setGameState, problemSet, setProblemSet }) => {
     if(counter === problemSet.length - 1) return;
     if(counter < problemSet.length - 1) increment();
   };
-
-
-  if(socket) {
-    socket.on('ROUND_OVER', setGameState);
-  }
 
   return (
 

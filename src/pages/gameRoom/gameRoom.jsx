@@ -18,35 +18,38 @@ export default function gameRoom({ socket }) {
 
   useEffect(() => {
     if(socket.isHost) socket.emit('CREATE_ROOM', { nickname });
+
     else {
       setRoomKey(socket.roomKey);
       console.log('JOINED');
       socket.emit('JOIN_ROOM', { roomKey: socket.roomKey, nickname });
       socket.emit('UPDATE_PLAYERS', { roomKey: socket.roomKey, nickname });
     }
+
+    // Socket Listeners
+    socket.on('PROBLEM_SET', problems => {
+      setProblemSet(problems);
+      console.log('PROBLEMS', problems);
+    });
+  
+    socket.on('ROOM_KEY', ({ roomKey }) => {
+      setRoomKey(roomKey);
+    });
+  
+    socket.on('JOIN_RESULTS', data => {
+      const { userId } = data;
+  
+      setPlayers(players => {
+        const playerFound = players.find(p => p.userId === userId);
+  
+        if(playerFound) return players;
+  
+        return [...players, data];
+      });
+    });
   }, []);
 
-  socket.on('PROBLEM_SET', problems => {
-    setProblemSet(problems);
-    console.log('PROBLEMS', problems);
-  });
-
-  socket.on('ROOM_KEY', ({ roomKey }) => {
-    setRoomKey(roomKey);
-    // setIsHost(isHost);
-  });
-
-  socket.on('JOIN_RESULTS', data => {
-    const { userId } = data;
-
-    setPlayers(players => {
-      const playerFound = players.find(p => p.userId === userId);
-
-      if(playerFound) return players;
-
-      return [...players, data];
-    });
-  });
+  console.log(players);
 
   let renderedComponent;
 
