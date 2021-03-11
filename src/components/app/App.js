@@ -10,9 +10,10 @@ import SplashPage from "../../pages/splashpage/SplashPage";
 import ChooseGame from "../../pages/choosegame/ChooseGame";
 import GameRoom from "../../pages/gameRoom/gameRoom";
 
-import { io } from "socket.io-client";
-import WaitingRoom from "../../slides/waitingroom/WaitingRoom";
-import GameTable from "../../slides/gametable/GameTable";
+import { io } from 'socket.io-client';
+import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
+import GameTable from '../../slides/gametable/GameTable';
+import ScoreSheet from '../../slides/scoresheet/ScoreSheet';
 
 const serverUrl = process.env.SERVER_URL;
 
@@ -66,6 +67,7 @@ export default function App() {
           />
           <Route path="/waitingroom" component={WaitingRoom} />
           <Route path="/gametable" component={GameTable} />
+          <Route path="/scoresheet" component={ScoreSheet} />
         </Switch>
       </ThemeProvider>
     </Router>
