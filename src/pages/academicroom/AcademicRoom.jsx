@@ -7,6 +7,7 @@ import ScoreCard from '../../components/scoreCard/ScoreCard';
 import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
 import { getProblems } from '../../services/math-api';
+import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
 // import PropTypes from 'prop-types'
 import styles from './Academicroom.css';
 // import './Academicroom.scss';
@@ -120,6 +121,7 @@ const AcademicRoom = (props) => {
  
   return (
     <div className={styles.academicRoom}>
+    <LeftSideDrawer />
       <main className={styles.academicContainer}>
         <div className={styles.problemColumn}>
           <div className={styles.responseContainer}>

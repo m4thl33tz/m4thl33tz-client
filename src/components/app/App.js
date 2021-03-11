@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import CssBaseLine from '@material-ui/core/CssBaseline';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import CssBaseLine from "@material-ui/core/CssBaseline";
 
-import HomePage from '../../pages/home/HomePage';
-import PracticeRoom from '../../pages/practiceroom/PracticeRoom';
-import AcademicRoom from '../../pages/academicroom/AcademicRoom';
-import SplashPage from '../../pages/splashpage/SplashPage';
-import ChooseGame from '../../pages/choosegame/ChooseGame';
-import GameRoom from '../../pages/gameRoom/gameRoom';
+import HomePage from "../../pages/home/HomePage";
+import PracticeRoom from "../../pages/practiceroom/PracticeRoom";
+import AcademicRoom from "../../pages/academicroom/AcademicRoom";
+import SplashPage from "../../pages/splashpage/SplashPage";
+import ChooseGame from "../../pages/choosegame/ChooseGame";
+import GameRoom from "../../pages/gameRoom/gameRoom";
 
-import { io } from 'socket.io-client';
-import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
-import GameTable from '../../slides/gametable/GameTable';
-import ScoreSheet from '../../slides/scoresheet/ScoreSheet';
+import { io } from "socket.io-client";
+import WaitingRoom from "../../slides/waitingroom/WaitingRoom";
+import GameTable from "../../slides/gametable/GameTable";
 
 const serverUrl = process.env.SERVER_URL;
 
@@ -22,18 +21,18 @@ export default function App() {
 
   const theme = createMuiTheme({
     typography: {
-      fontFamily: 'sans-serif',
+      fontFamily: "sans-serif",
     },
     palette: {
       primary: {
-        light: '#9a67ea',
-        main: '#673ab7',
-        dark: '#320b86',
+        light: "#9a67ea",
+        main: "#ffffff",
+        dark: "#320b86",
       },
       secondary: {
-        light: '#ffa270',
-        main: '#ff7043',
-        dark: '#c63f17',
+        light: "#ffa270",
+        main: "#ff7043",
+        dark: "#c63f17",
       },
     },
   });
@@ -53,23 +52,20 @@ export default function App() {
           <Route exact path="/" component={SplashPage} />
           <Route path="/practiceroom" component={PracticeRoom} />
           <Route path="/academicroom" component={AcademicRoom} />
-          <Route 
+          <Route
             path="/choosegame"
-            render={routerProps => <ChooseGame
-              {...routerProps} 
-              socket={socket}
-            />}
+            render={(routerProps) => (
+              <ChooseGame {...routerProps} socket={socket} />
+            )}
           />
-          <Route 
-            path="/gameroom" 
-            render={routerProps => <GameRoom 
-              {...routerProps}
-              socket={socket}
-            />}
+          <Route
+            path="/gameroom"
+            render={(routerProps) => (
+              <GameRoom {...routerProps} socket={socket} />
+            )}
           />
           <Route path="/waitingroom" component={WaitingRoom} />
           <Route path="/gametable" component={GameTable} />
-          <Route path="/scoresheet" component={ScoreSheet} />
         </Switch>
       </ThemeProvider>
     </Router>
