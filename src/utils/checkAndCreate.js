@@ -53,14 +53,22 @@ export const addNewPoints = async ({ email }) => {
   return points.json();
 };
 
-export const addPoints = (email, points) => {
-  return fetch(`${URL}/addPoints`)
-    .send({ email, points })
-    .then((res) => res.json());
+export const addPoints = async (email, points) => {
+  const updatePoints = await fetch(`${URL}/points/addPoints`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      points,
+    }),
+  });
+  console.log(updatePoints);
+  return updatePoints.json();
 };
 
-export const findAllPoints = () => {
-  return fetch(`${URL}/getLL`).then((res) => res.json());
+export const findAllPoints = async () => {
+  const points = await fetch(`${URL}/points/getAll`).then((res) => res.json());
+  return points;
 };
 
 export const findPointsByEmail = (email) => {
