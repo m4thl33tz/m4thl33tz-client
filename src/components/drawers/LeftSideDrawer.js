@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Drawer, List, IconButton, Typography } from "@material-ui/core";
-import DehazeIcon from "@material-ui/icons/Dehaze";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import PolymerIcon from "@material-ui/icons/Polymer";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Drawer, List, IconButton, Typography } from '@material-ui/core';
+import DehazeIcon from '@material-ui/icons/Dehaze';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import PolymerIcon from '@material-ui/icons/Polymer';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import PeopleIcon from '@material-ui/icons/People';
 
-import useStyles from "./LeftDrawer.styles";
+import useStyles from './LeftDrawer.styles';
 
 function LeftSideDrawer() {
   const classes = useStyles();
@@ -16,9 +18,9 @@ function LeftSideDrawer() {
   const [isOpen, setOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+    if(
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -39,21 +41,21 @@ function LeftSideDrawer() {
         onKeyDown={toggleDrawer(false)}
       >
         <div className={classes.toolbar}>
-          <Typography variant="h5" style={{ marginLeft: "10px" }}>
+          <Typography variant="h5" style={{ marginLeft: '10px' }}>
             M4thl33tz
           </Typography>
         </div>
         <Divider />
         <div className={classes.list}>
           <List className={classes.list}>
-            <ListItem button onClick={() => history.push("/choosegame")}>
-              <ListItemIcon>{<PolymerIcon />}</ListItemIcon>
-              <ListItemText primary={"Game options"} />
+            <ListItem button onClick={() => history.push('/choosegame')}>
+              <ListItemIcon>{<SportsEsportsIcon />}</ListItemIcon>
+              <ListItemText primary={'Game options'} />
             </ListItem>
 
-            <ListItem button onClick={() => console.log("clicked")}>
-              <ListItemIcon>{<PolymerIcon />}</ListItemIcon>
-              <ListItemText primary={"About us"} />
+            <ListItem button onClick={() => history.push('/m4thl33tz')}>
+              <ListItemIcon>{<PeopleIcon />}</ListItemIcon>
+              <ListItemText primary={'About us'} />
             </ListItem>
           </List>
         </div>

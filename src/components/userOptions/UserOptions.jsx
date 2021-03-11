@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './AcademicFooter.css';
+import styles from './UserOptions.css';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AcademicFooter = ({ updateOperationType, updateDifficulty, operationType, difficulty }) => {
+const UserOptions = ({ updateOperationType, updateDifficulty, operationType, difficulty }) => {
   const classes = useStyles();
   return (
-    <footer className={styles.academicFooter}>
+    <footer className={styles.userOptions}>
       <FormControl className={classes.formControl}>
         <InputLabel id="difficulty-label">Difficulty</InputLabel>
         <Select
@@ -53,11 +53,11 @@ const AcademicFooter = ({ updateOperationType, updateDifficulty, operationType, 
   );
 };
 
-AcademicFooter.propTypes = {
+UserOptions.propTypes = {
   updateOperationType: PropTypes.func.isRequired,
   updateDifficulty: PropTypes.func.isRequired,
-  operationType: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
+  operationType: PropTypes.string,
+  difficulty: PropTypes.string,
 };
 
-export default AcademicFooter;
+export default UserOptions;

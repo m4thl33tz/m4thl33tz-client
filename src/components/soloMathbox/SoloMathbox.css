@@ -23,6 +23,10 @@
 
 .equationWrapper {
   margin-bottom: 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .equation {

@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AcademicFooter from '../../components/academicFooter/AcademicFooter';
 import AnswerButton from '../../components/answerButton/AnswerButton';
-import CalcButton from '../../components/calcButton/CalcButton';
 import Feedback from '../../components/feedback/Feedback';
 import ScoreCard from '../../components/scoreCard/ScoreCard';
-import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
 import { getProblems } from '../../services/math-api';
 import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
-// import PropTypes from 'prop-types'
 import styles from './Academicroom.css';
-// import './Academicroom.scss';
-
-
+import UserOptions from '../../components/userOptions/UserOptions';
 
 const AcademicRoom = (props) => {
   const [feedback, setFeedback] = useState('');
@@ -121,8 +116,8 @@ const AcademicRoom = (props) => {
  
   return (
     <div className={styles.academicRoom}>
-    <LeftSideDrawer />
       <main className={styles.academicContainer}>
+        <LeftSideDrawer />
         <div className={styles.problemColumn}>
           <div className={styles.responseContainer}>
             <Feedback
@@ -138,14 +133,11 @@ const AcademicRoom = (props) => {
               problemString={problemString}
               updateAnswer={updateAnswer}
               checkAnswer={checkAnswer}
+              operationType={operationType}
+              difficulty={difficulty}
             />
           </div>
           <div className={styles.inputContainer}>
-            <div className={styles.calcButtonWrapper}>
-              <CalcButton icon="Fraction" />
-              <CalcButton icon="dot" />
-              <CalcButton icon="exponent" />
-            </div>
             <div className={styles.answerButtonWrapper}>
               <AnswerButton
                 text="Next Problem"
@@ -170,21 +162,16 @@ const AcademicRoom = (props) => {
             currentScore={currentScore}
             allTimeScore={allTimeScore}
           />
-          <ScratchPad />
+          <UserOptions
+            updateOperationType={updateOperationType}
+            updateDifficulty={updateDifficulty}
+            difficulty={difficulty}
+            operationType={operationType}
+          />
         </div>
       </main>
-      <AcademicFooter
-        updateOperationType={updateOperationType}
-        updateDifficulty={updateDifficulty}
-        difficulty={difficulty}
-        operationType={operationType}
-      />
     </div>
   );
 };
-
-// AcademicRoom.propTypes = {
-
-// }
 
 export default AcademicRoom;

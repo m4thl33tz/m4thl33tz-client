@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './SoloMathbox.css';
+import Button from '@material-ui/core/Button';
+import { TextField } from '@material-ui/core';
 
 
 
-const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
-  //isCorrect will be used to change styles based on true or false
-
+const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer, operationType, difficulty }) => {
   
   return (
     <div className={styles.soloMathBox}>
       <div className={styles.problemString}>
-        <p>equation will show below</p>
+        <p>{difficulty} {operationType}</p>
       </div>
       <div className={styles.equationWrapper}>
         <span 
@@ -20,12 +20,20 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
             __html: mml,
           }}></span>
         <form onSubmit={checkAnswer} >
-          <input
-            value={answer}
+          <TextField
             onChange={updateAnswer}
-            className={styles.myAnswer}
-            placeholder="answer here..." />
-          <button id="SubmitButton" type="submit">Submit</button>
+            value={answer}
+            placeholder="answer here..."
+            style={{ marginRight: '10px', padding: '10px' }}
+          />
+          <Button
+            id="SubmitButton"
+            type="submit"
+            variant="contained"
+            color="default"
+          >
+            Submit
+          </Button>
         </form>
       </div>
     </div>
@@ -33,10 +41,12 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer }) => {
 };
 
 SoloMathbox.propTypes = {
-  answer: PropTypes.string.isRequired,
-  mml: PropTypes.string.isRequired,
-  checkAnswer: PropTypes.func,
+  answer: PropTypes.string,
+  mml: PropTypes.string,
+  checkAnswer: PropTypes.func.isRequired,
   updateAnswer: PropTypes.func.isRequired,
+  operationType: PropTypes.string,
+  difficulty: PropTypes.string,
 };
 
 export default SoloMathbox;
