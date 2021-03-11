@@ -1,12 +1,20 @@
-import React,  { useState } from 'react';
+import React,  { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import styles from './ChooseGame.css';
 
 const ChooseGame = ({ socket }) => {
   const history = useHistory();
-
+  const { user } = useAuth0();
   const [roomKey, setRoomKey] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState('M4thl33t');
+
+  useEffect(() => {
+    if(user) {
+      const { nickname: alias } = user;
+      setNickname(alias);
+    }
+  }, []);
 
   const toAcademicRoom = () => {
     alert('You will be redirected to the Academic Room');
@@ -42,7 +50,7 @@ const ChooseGame = ({ socket }) => {
         <div className={styles.academicCard}>
           <button 
             onClick={toAcademicRoom}>
-            click me to go to the adcademic Room
+            click me to go to the academic Room
           </button>
         </div>
       </section>
@@ -50,13 +58,16 @@ const ChooseGame = ({ socket }) => {
         <div className={styles.competitiveCard}>
           <h2>How about a friendly mAthl33tz Competition</h2>
           <div className={styles.nickname}>
-            <label htmlFor="nickname">Give Yourself a Nickname</label>
+            <label htmlFor="nickname">
+              Welcome {nickname}!
+               Would you link to use another nickname for this game?
+            </label>
             <input 
               name="nickname"
               type="text"
               value={nickname}
               onChange={updateNickname}
-              placeholder="What's ya name?" />
+              placeholder="nickname" />
           </div>
         </div>
         <div className={styles.createRoom}>
@@ -82,7 +93,7 @@ const ChooseGame = ({ socket }) => {
       </section>
     </div>
   );
-}
+};
 
 
 
