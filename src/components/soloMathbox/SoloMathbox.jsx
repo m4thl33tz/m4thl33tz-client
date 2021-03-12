@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer, operationType, difficulty }) => {
+const SoloMathbox = ({  answer, equation, checkAnswer, updateAnswer, operationType, difficulty }) => {
   
   return (
     <div className={styles.soloMathBox}>
@@ -16,9 +16,7 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer, operationType, d
       <div className={styles.equationWrapper}>
         <span 
           className={styles.equation}
-          dangerouslySetInnerHTML={{
-            __html: mml,
-          }}></span>
+        >{equation}</span>
         <form onSubmit={checkAnswer} >
           <TextField
             autoFocus
@@ -43,7 +41,7 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer, operationType, d
 
 SoloMathbox.propTypes = {
   answer: PropTypes.string,
-  mml: PropTypes.string,
+  equation: PropTypes.string,
   checkAnswer: PropTypes.func.isRequired,
   updateAnswer: PropTypes.func.isRequired,
   operationType: PropTypes.string,

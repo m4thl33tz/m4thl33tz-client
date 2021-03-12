@@ -15,6 +15,7 @@ export default function gameRoom({ socket }) {
   const [gameState, setGameState] = useState('WAITING');
   const [players, setPlayers] = useState([]);
   const [problemSet, setProblemSet] = useState([]);
+  const [difficulty, setDifficulty] = useState('easy');
   const [roomKey, setRoomKey] = useState('');
   const [apiLoading, setApiLoading] = useState(true);
 
@@ -73,8 +74,16 @@ export default function gameRoom({ socket }) {
 
   switch(gameState) {
     case 'WAITING':
-      renderedComponent = <WaitingRoom 
-        {...{ socket, roomKey, setGameState, setPlayers, players, isHost } }/>;
+      renderedComponent = <WaitingRoom {...{ 
+        socket, 
+        roomKey, 
+        setGameState, 
+        setPlayers,
+        players, 
+        isHost, 
+        difficulty, 
+        setDifficulty
+      } }/>;
       break;
     case 'START_GAME':
       renderedComponent = <TitleCard {...{ 
@@ -90,7 +99,8 @@ export default function gameRoom({ socket }) {
         players, 
         setGameState, 
         problemSet, 
-        setProblemSet 
+        setProblemSet,
+        difficulty
       } }/>;
       break;
     case 'ROUND_OVER':
