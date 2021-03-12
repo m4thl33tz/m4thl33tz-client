@@ -128,7 +128,7 @@ const AcademicRoom = (props) => {
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              mml={problems[counter]?.mml}
+              equation={problems[counter]?.equation}
               answer={answer}
               problemString={problemString}
               updateAnswer={updateAnswer}

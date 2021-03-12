@@ -10,7 +10,7 @@ import styles from './GameTable.css';
 
 
 
-const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProblemSet }) => {
+const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProblemSet, difficulty }) => {
   const [counter, setCounter] = useState(0);
   const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -26,6 +26,7 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
     socket.on('ROUND_OVER', setGameState);
   }, []);  
 
+  // State updaters
   const increment = () => {
     setCounter(counter => counter + 1);
   };
@@ -37,34 +38,40 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
   const checkAnswer = event => {
     event.preventDefault();
 
+    // Get the user's answer and check it against solution
     const answer = Number(event.target[0].value);
     const isCorrect = answer === problemSet[counter].solution;
 
-    const points = Number(isCorrect) * 10;
+    // Convert difficulty to number to scale points with difficulty
+    let diffNumber = 1;
 
+    if(difficulty === 'medium') diffNumber = 5;
+    if(difficulty === 'hard') diffNumber = 10;
+
+    // Calculate points
+    const points = Number(isCorrect) * 10 * diffNumber;
+
+    // Send points to the back end
     socket.emit('UPDATE_SCORE', { roomKey, points });
 
+    // Tell user if their answer was correct
     const marquee = isCorrect ? 'Correct!' : 'Incorrect!';
 
     setFeedback(() => {
       return marquee;
     });
 
-    setProblemSet(problems => {
-      problems[counter].isCorrect = isCorrect;
-      problems[counter].answer = answer;
-      return problems;
-    });
-
+    // Reset answer input
     setAnswer('');
+
+    // Increment counter. Make sure it doesn't break!
     if(counter === problemSet.length - 1) return;
     if(counter < problemSet.length - 1) increment();
   };
 
+  console.log(problemSet);
+
   return (
-
-  // submit button is indeed better on the mathbox
-
     <div className={styles.gameTable}>
       <main className={styles.gameTableContainer}>
         <video className={styles.backgroundVideo} autoPlay muted loop
@@ -86,8 +93,7 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
           </div> 
           <div className={styles.problemContainer}>
             <SoloMathbox
-              mml={problemSet[counter]?.mml}
-              // problemString={problemString}
+              equation={problemSet[counter]?.equation}
               updateAnswer={updateAnswer}
               checkAnswer={checkAnswer}
               answer={answer}

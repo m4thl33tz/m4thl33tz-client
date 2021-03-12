@@ -1,28 +1,18 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './WaitingRoom.css';
 
-const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
-  // Waiting Room State
-  const [gameOptions, setGameOptions] = useState({
-    operand: 'arithmetic',
-    operator: 'addition',
-    difficulty: 'easy'
-  });
-
+const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost, difficulty, setDifficulty }) => {
   // Handlers
   const startGame = () => {
     socket.emit('START_GAME', roomKey);
   };
 
-  const updateOptions = event => {
+  const updateDifficulty = event => {
     event.preventDefault();
 
-    setGameOptions(gameOptions => ({
-      ...gameOptions,
-      [event.target.id]: event.target.value
-    }));
+    setDifficulty(event.target.value);
   };
 
   // Socket Listeners
@@ -30,11 +20,19 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
     socket.on('START_GAME_RESULTS', setGameState);
   }, []);
 
-  // Send updated game options to the back end
-  useEffect(() => {
-    socket.emit('GAME_OPTIONS', { ...gameOptions, roomKey });
-  }, [gameOptions]);
+  const isInitialMount = useRef(true);
 
+  useEffect(() => {
+    // Only send updated difficulty to the BE after mount
+    if(isInitialMount.current) {
+      isInitialMount.current = false;
+    }
+    else {
+      socket.emit('GAME_OPTIONS', { difficulty, roomKey });
+    }
+  }, [difficulty]);
+
+  // List of players
   const roster = players.map(player => {
     return (
       <p key={player.userId}>{player.nickname}</p>
@@ -42,7 +40,6 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
   });
 
   return (
-  // Wrapped in the  game room
     <div className={styles.waitingRoom}>
       <header>
         <div className={styles.homeButton}>
@@ -62,27 +59,8 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
           <div className={styles.waitingRoomOptions}>
             <form
               style={{ visibility: isHost ? 'visible' : 'hidden' }}
-              onChange={updateOptions}
+              onChange={updateDifficulty}
             >
-
-              <label htmlFor="operand">Operand: </label>
-              <select
-                id="operand"
-                defaultValue="arithmetic"
-              >
-                <option value="arithmetic">Arithmetic</option>
-              </select>
-
-              <label htmlFor="operator">Operator: </label>
-              <select 
-                id="operator" 
-                defaultValue="addition"
-              >
-                <option value="addition">Addition</option>
-                <option value="multiplication">Multiplication</option>
-                <option value="subtraction">Subtraction</option>
-                <option value="division">Division</option>
-              </select>
               <label htmlFor="difficulty">Difficulty: </label>
               <select 
                 id="difficulty" 
@@ -110,6 +88,6 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost }) => {
 
 WaitingRoom.propTypes = {
 
-}
+};
 
 export default WaitingRoom;
