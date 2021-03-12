@@ -14,6 +14,7 @@ const Feedback = ({ feedback, counter, setLength }) => {
     </>
   );
 };
+
 Feedback.propTypes = {
   feedback: PropTypes.string.isRequired,
   counter: PropTypes.number.isRequired,

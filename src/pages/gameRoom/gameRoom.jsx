@@ -4,15 +4,19 @@ import { useHistory } from 'react-router';
 
 import WaitingRoom from '../../slides/waitingroom/WaitingRoom';
 import GameTable from '../../slides/gametable/GameTable';
+import TitleCard from '../../slides/cards/R_One_TitleCard';
+import TimeUpCard from '../../slides/cards/R_One_TimeUpCard';
+import WinnerCard from '../../slides/cards/WinnerCard';
+
 import styles from './gameRoom.css';
+import ScoreSheet from '../../slides/scoresheet/ScoreSheet';
 
 export default function gameRoom({ socket }) {
   const [gameState, setGameState] = useState('WAITING');
   const [players, setPlayers] = useState([]);
   const [problemSet, setProblemSet] = useState([]);
-
-  // const [isHost, setIsHost] = useState(false);
   const [roomKey, setRoomKey] = useState('');
+  const [apiLoading, setApiLoading] = useState(true);
 
   const { nickname, isHost } = socket;
 
@@ -28,6 +32,7 @@ export default function gameRoom({ socket }) {
     // Socket Listeners
     socket.on('PROBLEM_SET', problems => {
       setProblemSet(problems);
+      setApiLoading(false);
     });
   
     socket.on('ROOM_KEY', ({ roomKey }) => {
@@ -63,8 +68,6 @@ export default function gameRoom({ socket }) {
     });
   }, []);
 
-  console.log(players);
-
   let renderedComponent;
 
   switch(gameState) {
@@ -73,14 +76,30 @@ export default function gameRoom({ socket }) {
         {...{ socket, roomKey, setGameState, setPlayers, players, isHost } }/>;
       break;
     case 'START_GAME':
-      renderedComponent = <BriefingCard {...{ socket, setGameState } }/>;
+      renderedComponent = <TitleCard {...{ 
+        socket, 
+        setGameState, 
+        apiLoading 
+      } }/>;
       break;
     case 'ROUND_ONE':
-      renderedComponent = <GameTable
-        {...{ socket, roomKey, players, setGameState, problemSet, setProblemSet } }/>;
+      renderedComponent = <GameTable {...{ 
+        socket, 
+        roomKey, 
+        players, 
+        setGameState, 
+        problemSet, 
+        setProblemSet 
+      } }/>;
       break;
     case 'ROUND_OVER':
-      renderedComponent = <GameOver socket={socket}/>;
+      renderedComponent = <TimeUpCard {...{ socket, setGameState }}/>;
+      break;
+    case 'GAME_OVER':
+      renderedComponent = <ScoreSheet {...{ socket, players, setGameState }} />;
+      break;
+    case 'DISPLAY_WINNER':
+      renderedComponent = <WinnerCard players={players}/>;
       break;
     default:
       renderedComponent = <div>Something is not right!</div>;
@@ -92,18 +111,6 @@ export default function gameRoom({ socket }) {
   );
 }
 
-
-
-
-function BriefingCard({ socket, setGameState }) {
-  if(socket) {
-    socket.on('ROUND_ONE', setGameState);
-  }
-
-  return (
-    <p>Game is Starting!</p>
-  );
-}
 
 
 function GameOver({ socket }) {

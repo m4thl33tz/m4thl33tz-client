@@ -1,37 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import styles from './ScoreSheet.css';
 import playerScores from './../../data/seed-round-scores.json';
+import { addPoints } from '../../utils/checkAndCreate';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const ScoreSheet = props => {
-//   state needed: 
-//       all player nicknames
-//      all players round scores
-//     all player current game scores 
-//     all player updated game scores --> added up here? updated via setTimeout?
-//     current round number
+const ScoreSheet = ({ socket, players, setGameState }) => {
+  const { user } = useAuth0();
 
-  
-  //  const score = () => {
-  //    this function takes the current game score, for 3 seconds
-  //   then adds the round score to the current score
-  //   needs to be displaying this dynamically 
-  //  }
+  useEffect(() => {
+    socket.on('DISPLAY_WINNER', setGameState);
 
-  const playerScoreElements = playerScores.map((score, i) => (
+    const { points } = players.find(p => p.userId === socket.id);
 
-    <li key={`${score.nickname}-${i}`}>
+    if(user) addPoints(user.email, points);
+  }, []);
+
+  const playerScoreElements = players.map(player => (
+    <li key={player.userId}>
       <span className={styles.nickname}>
-        {score.nickname}
+        {player.nickname}
       </span>
       <span className={styles.score}>
-        {score.score}
+        {player.points}
       </span>
     </li>
-  ))
+  ));
 
-  // list items can be destructured later into seperate list items...
-  // although if we use a chart, it will not be destructured
   return (
     <div className={styles.scoreSheetContainer}>
       <div className={styles.title}>
@@ -44,11 +39,11 @@ const ScoreSheet = props => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
 ScoreSheet.propTypes = {
 
-}
+};
 
-export default ScoreSheet
+export default ScoreSheet;

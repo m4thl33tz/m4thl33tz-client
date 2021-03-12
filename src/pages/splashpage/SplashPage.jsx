@@ -30,7 +30,7 @@ const SplashPage = () => {
       const isUser = await checkUser(user);
       if(!isUser) {
         await addPlayer(user);
-        await addNewPoints(user);;
+        await addNewPoints(user);
       } return;
     }
   }, [user]);
@@ -61,7 +61,6 @@ const SplashPage = () => {
   const wrappedGetStarted = [...getStarted].map((char, i) => (
     <span key={i} className={styles.letter}>{char}</span>
   ));
-
 
   if (loading) {
     return (

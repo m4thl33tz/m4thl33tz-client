@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './R_One_TimeUpCard.css';
 import Anime from 'react-anime';
 
 
 
-const TitleCard = ({ socket, setGameState }) => {
+const TimeUp = ({ socket, setGameState }) => {
+
+  useEffect(() => {
+    socket.on('GAME_OVER', setGameState);
+  }, []);
 
   const text = 'Time\'s UP!!';
 
   const wrappedTimeUpLetters = [...text].map((char, i) => (
     <span key={i} className={styles.letter}>{char}</span>
   ));
-
-
-  // if(socket) {
-  //   socket.on('ROUND_ONE', setGameState);
-  // }
 
   return (
  
@@ -46,4 +45,4 @@ const TitleCard = ({ socket, setGameState }) => {
   )
 }
 
-export default TitleCard
+export default TimeUp

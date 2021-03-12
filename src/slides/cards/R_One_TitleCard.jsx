@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './R_One_TitleCard.css';
 import Anime from 'react-anime';
 
 const round = 'ROUND ONE';
 
-const TitleCard = ({ socket, setGameState }) => {
+const TitleCard = ({ socket, setGameState, apiLoading }) => {
+
+  useEffect(() => {
+    socket.on('ROUND_ONE', setGameState);
+  }, []);
 
   const text = 'Prepare for';
 
@@ -16,9 +20,7 @@ const TitleCard = ({ socket, setGameState }) => {
     <span key={i} className={styles.letter}>{char}</span>
   ));
 
-  if(socket) {
-    socket.on('ROUND_ONE', setGameState);
-  }
+  if(apiLoading) return <div>Fetching problems...</div>;
 
   return (
  
@@ -60,7 +62,7 @@ const TitleCard = ({ socket, setGameState }) => {
         </Anime>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TitleCard
+export default TitleCard;

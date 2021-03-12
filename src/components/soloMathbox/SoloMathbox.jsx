@@ -21,6 +21,7 @@ const SoloMathbox = ({  answer, mml, checkAnswer, updateAnswer, operationType, d
           }}></span>
         <form onSubmit={checkAnswer} >
           <TextField
+            autoFocus
             onChange={updateAnswer}
             value={answer}
             placeholder="answer here..."
