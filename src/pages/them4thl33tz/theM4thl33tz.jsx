@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styles from './theM4thl33tz.css';
-import highScorers from '../../data/seed-highScorers.json';
+// import highScoreList from '../../data/seed-highScorers.json';
 import aboutUs from '../../data/about-us.json';
 import { findAllPoints } from '../../utils/checkAndCreate';
+import Anime from 'react-anime';
 import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
 
-const theM4thl33tz = props => {
+const theM4thl33tz = () => {
   const [highScoreList, setHighScoreList] = useState([]);
 
   useEffect(async() => {
@@ -16,10 +16,14 @@ const theM4thl33tz = props => {
   }, []);
   
 
-  // state needed: highScorers:
-  //    a munged array that holds the top 10 players and their top scores player=  
-  //       {nickname: 'Bill',
-  //        score: 50}... or something, use the structure that Justin Made in the game database.
+// THE DEV ONE
+  // const highScorerElements = highScoreList?.map((scorer, i) => (
+  //   <li key={`{scorer.name}-${i}`} className={styles.highScorer}>
+  //     <div className={styles.name}>{scorer.name}</div>
+  //     <div className={styles.points}>{scorer.points}</div>
+  //   </li>
+
+// THE REAL ONE
 
   const highScorerElements = highScoreList?.map((scorer, i) => (
     <li key={`{scorer.name}-${i}`} className={styles.highScorer}>
@@ -29,25 +33,46 @@ const theM4thl33tz = props => {
 
   ));
 
+
+
   return (
     <div className={styles.m4thl33tzRoom}>
+      <div className={styles.drawerContainer}>
       <LeftSideDrawer 
       optionsButton={false}
       aboutUsButton={true}
       />
+      </div>
+      <video className={styles.backgroundVideo} autoPlay muted loop>
+        <source src="./src/assets/approaching_equations_long.mp4"
+          type="video/mp4"></source>
+      </video>
+      
+      <h1 className={styles.title}>m33t the m4thl33tz!!</h1>
       <ul className={styles.highScoresList}>
         {
           highScoreList.length ?
-             highScorerElements
+          <Anime
+          loop={false}
+          scale={[0, 1.1]}
+          opacity={[0, 1]}
+          rotate={
+            [(el) => Math.random()* 60 - 30,
+              0]}
+          translateX={[0, 0]}
+          translateY={[-20, 0]}
+          translateZ={0}
+          easing="easeOutElastic"
+          duration={800}
+          delay={(el, i) => 70 * i + 500} 
+        >
+          {highScorerElements}
+        </Anime>
             : <div>Loading</div>
         }
       </ul>
     </div>
   );
-};
-
-theM4thl33tz.propTypes = {
-
 };
 
 export default theM4thl33tz;
