@@ -1,35 +1,35 @@
 [
   {
     "name": "Sam Formichella",
-    "imageUrl": "../src/assets/sams-face.jpg",
+    "imageUrl": "../../assets/sams-face.jpg",
     "content": "\"Spread the word: Math is awesome.\"",
     "githubLink": "https://github.com/sformichella",
     "linkedInLink": "https://www.linkedin.com/in/sformichella/"
   },
   {
     "name": "David Butler",
-    "imageUrl": "../src/assets/david.jpeg",
+    "imageUrl": "../../assets/david.jpeg",
     "content": "\"If you can't explain it simply, you don't understand it well enough.\"",
     "githubLink": "https://github.com/davidabutler92",
     "linkedInLink": "https://www.linkedin.com/in/david-arron-butler/"
   },
 {
   "name": "Jonathan Quesada",
-  "imageUrl": "../src/assets/jonathan.jpg",
+  "imageUrl": "../../assets/jonathan.jpg",
   "content": "\"Building with my friends is fun!\"",
   "githubLink": "https://github.com",
   "linkedInLink": "https://linkedin.com"
   },
 {
   "name": "Andrew Bray",
-  "imageUrl": "../src/assets/andrew.jpeg",
+  "imageUrl": "../../assets/andrew.jpeg",
   "content": "\"Inspiration is not a guest who visits the lazy.\"",
   "githubLink": "https://github.com/Andrew-Bray",
   "linkedInLink": "https://www.linkedin.com/in/andrew-michael-bray/"
   },
 {
   "name": "Justin Martin",
-  "imageUrl": "../src/assets/justinandson.jpeg",
+  "imageUrl": "../../assets/justinandson.jpeg",
   "content": "\"If you would do it even if you weren't getting paid, then it is worth doing.\"",
   "githubLink": "https://github.com/JustinMartin7x",
   "linkedInLink": "https://www.linkedin.com/in/justin-martin7x/"

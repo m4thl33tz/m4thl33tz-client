@@ -49,7 +49,7 @@ const theM4thl33tz = () => {
             {dev.content}
           </div>
         </div>
-        <img src={dev.imageUrl} alt={dev.name} />
+        
         <div className={styles.linkContainer}>
           <a className={styles.github} 
             href={dev.githubLink}

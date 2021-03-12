@@ -152,6 +152,9 @@
   text-decoration: none;
   filter: invert(100%);
 }
+ .github:hover {
+   transform: scale(1.06);
+ }
 
 .linkedIn {
   height: 30px;
@@ -162,3 +165,9 @@
   text-decoration: none;
   filter: invert(100%);
 }
+
+.linkedIn:hover {
+  transform: scale(1.06);
+}
+
+
