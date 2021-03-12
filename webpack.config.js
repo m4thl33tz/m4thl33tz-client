@@ -84,6 +84,10 @@ module.exports = {
           options: { limit: 1000 },
         },
       },
+      {
+        test: /\.mp4$/,
+        use: 'file-loader?name=videos/[name].[ext]',
+      },
     ],
   },
 };

@@ -1,45 +1,134 @@
 .waitingRoom {
-  border: whitesmoke solid;
-  border-radius: 8%;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  font-size: 30px;
+  font-family: 'Architects Daughter', cursive;
+  background: rgba(50, 20, 66, 0.8);
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+
 }
 
-header {
-  position: fixed;
+.waitingRoom::before {
+  content: '';
+  background-image: url(../../assets/math-wallpaper-chalkboard.jpg);
+  background-size: cover;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  opacity: 1;
+  z-index: -2;
+}
+
+.header {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100px;
   display: flex;
   flex-direction: row;
-  border: solid red;
+  align-items: center;
+  justify-content: center;
   .homeButton {
-    margin: 10px;
+    margin: 0px;
   }
-  a {
+  .myLink {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: right;
+    padding-right: 10px;
+    max-width: 80px;
+    background: rgb(90, 54, 124);
+    font-size: 1rem;
     text-decoration: none;
     color: whitesmoke;
+    border-radius: 0 0 30% 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
   }
+
+  .title {
+    color: rgb(245, 245, 60);
+    font-size: 4.7rem;
+    display: flex;
+    flex-direction: row;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 0 0 8px purple;
+    .letter {
+      white-space: pre;
+      display: inline-block;
+
+    }
+  }
+
+  .myLink::after {
+    content: ' ';
+    white-space: pre;
+  }
+
+  .myLink:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.26);
+    background: rgb(112, 67, 155);
+  }
+
+
   h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin: auto;
     color: whitesmoke;
   }
 }
 
 .waitingContent {
-  border: burlywood solid;
   margin-top: 100px;
   height: 100%;
   display: flex;
   flex-direction: row;
 }
 
+.roomKey {
+  color: rgb(245, 139, 255);
+  font-size: 4.7rem;
+  transform: rotate(-4deg);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'Fredericka the Great', Impact;
+  text-shadow: 0 0 4px rgba(79, 40, 97, 0.644);
+  .letter {
+    white-space: pre;
+    display: inline-block;
+    margin: 12px;
+
+  }
+}
+
 .waitingLeft {
-  border: solid yellow;
+  padding: 0 25px;
   width: 63%;
+  p {
+    font-size: 1.5rem;
+    strong {
+      letter-spacing: 2px;
+      color: rgb(255, 245, 227);
+    }
+  }
 }
 .waitingRight {
-  border: solid rgb(98, 0, 255);
   width: 37%;
+}
+
+.roster {
+  color: rgb(216, 109, 71);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  margin-top: 10px;
+  p {
+    margin: 4px;
+    max-width: 250px;
+  }
 }

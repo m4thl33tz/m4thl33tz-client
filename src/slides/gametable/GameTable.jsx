@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AnswerButton from '../../components/answerButton/AnswerButton';
 import CalcButton from '../../components/calcButton/CalcButton';
-import Feedback from '../../components/feedback/Feedback';
+import FeedbackCompete from '../../components/feedbackcompete/FeedbackCompete';
 import ScratchPad from '../../components/scratchpad/ScratchPad';
 import SoloMathbox from '../../components/soloMathbox/SoloMathbox';
 import { getProblems } from '../../services/math-api';
@@ -85,10 +85,8 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
           </div>
           <div className={styles.responseContainer}>
             <p>Problem {counter + 1} out of {problemSet.length}</p>
-            <Feedback 
+            <FeedbackCompete 
               feedback={feedback}
-              counter={counter}
-              setLength={problemSet.length}
             />
           </div> 
           <div className={styles.problemContainer}>
@@ -100,17 +98,8 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
             />
           </div>
           <div className={styles.inputContainer}>
-            <div className={styles.calcButtonWrapper}>
-              <CalcButton icon="Fraction" />
-              <CalcButton icon="dot" />
-              <CalcButton icon="exponent" />
-            </div>
+
             <div className={styles.answerButtonWrapper}>
-              <AnswerButton
-                text="submit"
-                buttonFunction={checkAnswer}
-              />
-              
             </div>
           </div>
         </div>
@@ -124,17 +113,13 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
                   );
                 })
               }
+              
             </ul>
           </div>
-          <ScratchPad />
         </div>
       </main>
     </div>
   );
 };
-
-// GameTable.propTypes = {
-
-// }
 
 export default GameTable;

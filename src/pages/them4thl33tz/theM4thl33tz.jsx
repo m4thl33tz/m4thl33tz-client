@@ -6,6 +6,7 @@ import aboutUs from '../../data/about-us.json';
 import { findAllPoints } from '../../utils/checkAndCreate';
 import Anime from 'react-anime';
 import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
+import video from '../../assets/approaching_equations_long.mp4';
 
 const theM4thl33tz = () => {
   const [highScoreList, setHighScoreList] = useState([]);
@@ -44,7 +45,7 @@ const theM4thl33tz = () => {
       />
       </div>
       <video className={styles.backgroundVideo} autoPlay muted loop>
-        <source src="./src/assets/approaching_equations_long.mp4"
+        <source src={video}
           type="video/mp4"></source>
       </video>
       

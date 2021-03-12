@@ -3,6 +3,7 @@
   font-size: 30px;
   font-family: 'Architects Daughter', cursive;
   background: rgba(50, 20, 66, 0.8);
+  z-index: -2;
 }
 
 .academicRoom::before {
@@ -15,7 +16,7 @@
   left: 0px;
   position: absolute;
   opacity: 1;
-  z-index: -1;
+  z-index: -3;
 }
 
 .academicContainer {

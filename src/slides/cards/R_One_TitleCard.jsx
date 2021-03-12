@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './R_One_TitleCard.css';
 import Anime from 'react-anime';
 
-const round = 'ROUND ONE';
+const round = 'BATTLE!!';
 
 const TitleCard = ({ socket, setGameState, apiLoading }) => {
 
