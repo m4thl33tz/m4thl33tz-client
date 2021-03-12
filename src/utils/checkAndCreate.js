@@ -1,4 +1,4 @@
-const URL = "http://localhost:7890";
+const URL = process.env.SERVER_URL;
 
 // export const checkAndCreate = async (user) => {
 //   //using the /checkUser route and the unique id from auth0
