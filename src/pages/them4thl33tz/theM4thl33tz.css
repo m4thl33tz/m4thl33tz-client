@@ -2,7 +2,7 @@
 
 .m4thl33tzRoom {
   background: rgba(50, 20, 66, 0.8);
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@
   right: 0px;
   bottom: 0px;
   left: 0px;
-  position: absolute;
+  position: fixed;
   opacity: 1;
   z-index: -2;
 }
@@ -43,32 +43,122 @@
     margin-top: 2%;
   }
 
-  .highScoresList {
-    list-style-type: none;
-    width: 50vw;
-    padding: 0;
-    margin: 0;
+.highScoresList {
+  list-style-type: none;
+  width: 50vw;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .highScorer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .highScorer {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      font-size: 2rem;
-      .name {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        color: burlywood;
-        transform: rotate($randomNumber + deg) ;
-        text-shadow: 0 0 5px rgb(102, 70, 121);
-        -webkit-text-stroke: 1px rgb(62, 36, 75);
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 2rem;
+    .name {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      color: burlywood;
+      transform: rotate($randomNumber + deg) ;
+      text-shadow: 0 0 5px rgb(102, 70, 121);
+      -webkit-text-stroke: 1px rgb(62, 36, 75);
 
-      }
-      .points {
-        font-size: 1.7rem;
-        font-family: 'Architects Daughter', sans-serif;
-        color: yellow;
-      }
+    }
+    .points {
+      font-size: 1.7rem;
+      font-family: 'Architects Daughter', sans-serif;
+      color: yellow;
     }
   }
+}
 
+.developers {
+  width: 80vw;
+  text-align:center;
+  margin-top: 30px;
+  border-top: solid 2px rgb(231, 207, 126);
+  padding: 20px;
+  font-size: 2rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      color: rgb(247, 229, 205);
+      transform: rotate($randomNumber + deg) ;
+      text-shadow: 0 0 5px rgb(102, 70, 121);
+      -webkit-text-stroke: 1px rgb(62, 36, 75);
+}
+
+.aboutUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+}
+
+.devContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 15px 0px;
+  align-items: center;
+  justify-content: space-around;
+  img {
+    object-fit: cover;
+    height: 90px;
+    width: 120px;
+    border-radius: 18%;
+    filter: dropshadow( -5px 5px 4px rgba(0, 0, 0, 0.445))
+  }
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+
+.nameContainer {
+  color: rgb(245, 245, 60);
+  font-size: 3.2rem;
+  display: flex;
+  flex-direction: row;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 0 0 8px purple;
+  .letter {
+    white-space: pre;
+    display: inline-block;
+  }
+}
+
+.content {
+  font-size: 1.2rem;
+  max-width: 400px;
+  color: whitesmoke;
+}
+
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: yellow;
+  min-width: 50px;
+  margin-left: 10px;
+}
+.github {
+  height: 30px;
+  width: 30px;
+  background-image: url(../../assets/github.png);
+  background-position: center;
+  background-size: contain;
+  text-decoration: none;
+  filter: invert(100%);
+}
+
+.linkedIn {
+  height: 30px;
+  width: 30px;
+  background-image: url(../../assets/linkedin.png);
+  background-position: center;
+  background-size: contain;
+  text-decoration: none;
+  filter: invert(100%);
+}
