@@ -12,6 +12,8 @@ const Feedback = ({ feedback, counter, setLength }) => {
         <h3>{counter + 1}/{setLength}</h3>
       </div>
     </>
+  );
+};
 Feedback.propTypes = {
   feedback: PropTypes.string.isRequired,
   counter: PropTypes.number.isRequired,

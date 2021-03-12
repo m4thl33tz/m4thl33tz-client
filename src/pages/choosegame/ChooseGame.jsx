@@ -2,6 +2,7 @@ import React,  { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import styles from './ChooseGame.css';
+import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
 
 const ChooseGame = ({ socket }) => {
   const history = useHistory();
@@ -42,6 +43,10 @@ const ChooseGame = ({ socket }) => {
   return (
 
     <div className={styles.chooseGameContainer}>
+      <LeftSideDrawer
+        optionsButton={true}
+        aboutUsButton={false}
+      />
       <video className={styles.backgroundVideo} autoPlay muted loop>
         <source src="./src/assets/approaching_equations.mp4"
           type="video/mp4"></source>

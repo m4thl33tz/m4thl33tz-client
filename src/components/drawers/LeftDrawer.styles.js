@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   icon: {
-    width: "50px",
-    height: "50px",
+    width: '50px',
+    height: '50px',
   },
   iconButton: {
-    width: "50px",
-    height: "50px",
+    width: '40px',
+    height: '40px',
   },
 }));
 

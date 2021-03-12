@@ -5,6 +5,7 @@ import styles from './theM4thl33tz.css';
 import highScorers from '../../data/seed-highScorers.json';
 import aboutUs from '../../data/about-us.json';
 import { findAllPoints } from '../../utils/checkAndCreate';
+import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
 
 const theM4thl33tz = props => {
   const [highScoreList, setHighScoreList] = useState([]);
@@ -30,6 +31,10 @@ const theM4thl33tz = props => {
 
   return (
     <div className={styles.m4thl33tzRoom}>
+      <LeftSideDrawer 
+      optionsButton={false}
+      aboutUsButton={true}
+      />
       <ul className={styles.highScoresList}>
         {
           highScoreList.length ?
