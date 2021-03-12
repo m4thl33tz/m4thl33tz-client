@@ -1,12 +1,16 @@
 # M4thl33tz-client
 
-#### A goal goes here...
+## Goal
+
+#### Why doesn't Jackbox have any math games? We decided to do something about that!
 
 #### By _**David Butler,**_ _**Justin Martin,**_ _**Andrew Bray,**_ _**Jonathan Quesada,**_ _**Sam Formichella**_
 
 ## Description
 
-#### Description goes here...
+#### Our application allows for users a relaxed environment to exercise their math abilities in our Academic Room. 
+#### After polishing your abilities take your friends on in head to head challenges in our Game Room for a little friendly competition.
+
 
 ## Setup/Installation Requirements
 
