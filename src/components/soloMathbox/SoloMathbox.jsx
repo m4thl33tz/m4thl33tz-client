@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './SoloMathbox.css';
 import Button from '@material-ui/core/Button';
-import { TextField } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
 
 

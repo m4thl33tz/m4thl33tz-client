@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import styles from './ChooseGame.css';
 import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
+import Button from '@material-ui/core/Button';
 
 const ChooseGame = ({ socket }) => {
   const history = useHistory();
@@ -18,7 +19,7 @@ const ChooseGame = ({ socket }) => {
   }, []);
 
   const toAcademicRoom = () => {
-    alert('You will be redirected to the Academic Room');
+    history.push('/academicroom');
   };
   const createRoom = () => {
     socket.isHost = true;
@@ -53,19 +54,22 @@ const ChooseGame = ({ socket }) => {
       </video> 
       <section className={styles.section}>
         <div className={styles.academicCard}>
-          <button 
-            onClick={toAcademicRoom}>
-            click me to go to the academic Room
-          </button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={toAcademicRoom}
+          >
+            Academic Room
+          </Button>
         </div>
       </section>
       <section className={styles.section}>
         <div className={styles.competitiveCard}>
-          <h2>How about a friendly mAthl33tz Competition</h2>
+          <h2>How About A Friendly M4thl33tz Competition</h2>
           <div className={styles.nickname}>
             <label htmlFor="nickname">
-              Welcome {nickname}!
-               Would you link to use another nickname for this game?
+              <h3>Welcome {nickname}!</h3>
+              <h3>Choose a nickname for this game!</h3>
             </label>
             <input 
               name="nickname"
@@ -77,23 +81,33 @@ const ChooseGame = ({ socket }) => {
         </div>
         <div className={styles.createRoom}>
           <h3>Create your own Game</h3>
-          <button 
-            onClick={createRoom}>
-              click me to create a new Game
-          </button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={createRoom}
+          >
+              Create a New Game
+          </Button>
         </div>
         <div className={styles.joinRoom}>
-          <label htmlFor="join-room">Join a Game Room</label>
-          <input 
-            name="join-room"
-            type="text"
-            value={roomKey}
-            onChange={updateRoomKey}
-            placeholder="Enter Room Code Here" />
-          <button 
-            onClick={joinRoom}>
-              click me to to join a Room
-          </button>
+          <h3 htmlFor="join-room">Join a Game Room</h3>
+          <div>
+            <input 
+              name="join-room"
+              type="text"
+              value={roomKey}
+              onChange={updateRoomKey}
+              placeholder="Enter Room Code Here" />
+          </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={joinRoom}
+          >
+              Join a Room
+          </Button>
         </div>
       </section>
     </div>
