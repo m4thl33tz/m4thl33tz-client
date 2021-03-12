@@ -37,13 +37,40 @@
 .section {
   border: solid white;
   border-radius: 15%;
+  background: rgba(165, 157, 90, 0.041);
   width: 40vw;
   height: 75vh;
   margin: 10px;
   padding: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  transform: scale(.99);
 }
 
+.section:hover {
+  background: rgba(165, 157, 90, 0.096);
+  transform: scale(1);
+}
+
+.competitiveCard {
+  display: flex;
+  flex-direction: column;
+  h2 {
+    font-size: 2rem;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(240, 240, 88);
+  }
+}
+
+.academicCard {
+  margin-bottom: 100px;
+  h2 {
+    font-size: 2rem;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(240, 240, 88);
+    margin-bottom: 150px;
+  }
+
+}

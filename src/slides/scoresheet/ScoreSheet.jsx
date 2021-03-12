@@ -30,8 +30,8 @@ const ScoreSheet = ({ socket, players, setGameState }) => {
   return (
     <div className={styles.scoreSheetContainer}>
       <div className={styles.title}>
-        <h1>Scores for </h1>
-        <h1> Round 1</h1>
+        <h1>Scores for our</h1>
+        <h1> MATH BATTLE</h1>
       </div>
       <div className={styles.scoreChart}>
         <ul>

@@ -55,6 +55,7 @@ const ChooseGame = ({ socket }) => {
       </video> 
       <section className={styles.section}>
         <div className={styles.academicCard}>
+          <h2>PRACTICE?</h2>
           <Button
             variant="contained"
             color="primary"
@@ -66,7 +67,7 @@ const ChooseGame = ({ socket }) => {
       </section>
       <section className={styles.section}>
         <div className={styles.competitiveCard}>
-          <h2>How About A Friendly M4thl33tz Competition</h2>
+          <h2>BATTLE!</h2>
           <div className={styles.nickname}>
             <label htmlFor="nickname">
               <h3>Welcome {nickname}!</h3>

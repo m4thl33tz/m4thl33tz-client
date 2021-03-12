@@ -17,14 +17,7 @@ const theM4thl33tz = () => {
   }, []);
   
 
-// THE DEV ONE
-  // const highScorerElements = highScoreList?.map((scorer, i) => (
-  //   <li key={`{scorer.name}-${i}`} className={styles.highScorer}>
-  //     <div className={styles.name}>{scorer.name}</div>
-  //     <div className={styles.points}>{scorer.points}</div>
-  //   </li>
 
-// THE REAL ONE
 
   const highScorerElements = highScoreList?.map((scorer, i) => (
     <li key={`{scorer.name}-${i}`} className={styles.highScorer}>
@@ -34,7 +27,44 @@ const theM4thl33tz = () => {
 
   ));
 
+  const aboutUsElements = aboutUs.map((dev) => (
+      <div className={styles.devContainer} >
+        <div className={styles.leftSide}>
+          <div className={styles.nameContainer}>
+            <Anime
+            loop={true}
+            scale={[1.12, 1.13]}
+            rotate={[(el) => Math.random() * 9 - 6,
+              (el) => Math.random() * 9 - 2]}
+            translateY={[0, (el) => Math.random() * 6 - 2 ]}
+            easing="easeInOutQuad"
+            direction="alternate"
+            duration={690}>
+              {[...dev.name].map((char) => (
+              <span className={styles.letter}>{char}</span>
+              ))}
+            </Anime>
+          </div>
+          <div className={styles.content}>
+            {dev.content}
+          </div>
+        </div>
+        <img src={dev.imageUrl} alt={dev.name} />
+        <div className={styles.linkContainer}>
+          <a className={styles.github} 
+            href={dev.githubLink}
+            target="_blank" 
+            rel="noopener noreferrer"
+             />
+             <a className={styles.linkedIn} 
+            href={dev.linkedInLink}
+            target="_blank" 
+            rel="noopener noreferrer"
+             />
+        </div>
 
+      </div>
+    ));
 
   return (
     <div className={styles.m4thl33tzRoom}>
@@ -72,6 +102,12 @@ const theM4thl33tz = () => {
             : <div>Loading</div>
         }
       </ul>
+      <div className={styles.developers}>
+        <h1>the m4thL33te Dev3L0pers</h1>
+      </div>
+      <div className={styles.aboutUs}>
+        {aboutUsElements}
+      </div>
     </div>
   );
 };
