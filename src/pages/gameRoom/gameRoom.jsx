@@ -68,6 +68,11 @@ export default function gameRoom({ socket }) {
         return copy;
       });
     });
+
+    socket.on('GAME_OPTIONS_RESULTS', diff => {
+      setDifficulty(diff);
+      console.log('Difficulty', diff);
+    });
   }, []);
 
   let renderedComponent;
