@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AcademicFooter from '../../components/academicFooter/AcademicFooter';
 import AnswerButton from '../../components/answerButton/AnswerButton';
 import Feedback from '../../components/feedback/Feedback';
 import ScoreCard from '../../components/scoreCard/ScoreCard';
@@ -79,11 +78,11 @@ const AcademicRoom = (props) => {
     disableSubmit();
   };
 
-  const checkAnswer = (event) => {
+  const checkAnswer = async(event) => {
     event.preventDefault();
     disableSubmit();
     const parsedAnswer = Number(answer);
-    const isCorrect = parsedAnswer === problems[counter].solution;
+    const isCorrect = (parsedAnswer === problems[counter].solution);
     if(isCorrect === true) {
       incrementScore();
       setFeedback('You did it! Good job!');

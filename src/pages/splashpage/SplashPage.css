@@ -37,6 +37,11 @@
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serifs;
   text-shadow: 0 0 10px rgb(68, 27, 63);
   cursor: pointer;
+  animation-name: glow;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 5s;
 }
 
 .areYouReady {
@@ -73,7 +78,7 @@
 }
 
 @keyframes glow {
-  0% {filter: (drop-shadow( 0 0 0 red));}
-  50% {filter: (drop-shadow( 0 0 10px red));}
-  100% {filter: (drop-shadow( 0 0 0 red));}
+  0% {text-shadow: 0 0 10px rgb(68, 27, 63);}
+  50% {text-shadow: 0 0 20px rgba(151, 103, 0, 0.664);}
+  100% {text-shadow: 0 0 10px rgb(68, 27, 63);}
 }

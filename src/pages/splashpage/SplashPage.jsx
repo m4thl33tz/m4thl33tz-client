@@ -7,6 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { addNewPoints, checkUser, addPlayer } from '../../utils/checkAndCreate';
 import styles from './SplashPage.css';
 import Anime from 'react-anime';
+import video from '../../assets/approaching_equations.mp4';
 
 
 
@@ -44,13 +45,18 @@ const SplashPage = () => {
 
   
 
-  const m4thPhraseOne = 'm4thl33te';
+  const m4thPhraseOne = 'm4thl33te?';
+  const m4thPhraseTwo = 'm4thl33te!';
   const readyPhrase = 'Are you Ready to be a';
   const getStarted = 'let\'s get started';
 
 
   // spreads the phrase and wraps each char in a span
   const wrappedWelcomeLetters = [...m4thPhraseOne].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
+
+  const wrappedEnterLetters = [...m4thPhraseTwo].map((char, i) => (
     <span key={i} className={styles.letter}>{char}</span>
   ));
 
@@ -65,12 +71,12 @@ const SplashPage = () => {
   if (loading) {
     return (
       <div>loading!!!!!!!</div> 
-    )
+    );
   } if (!isAuthenticated && !loading) {
     return (
       <div className={styles.splashContainer}>
         <video className={styles.backgroundVideo} autoPlay muted loop>
-          <source src="./src/assets/approaching_equations.mp4"
+          <source src={video}
             type="video/mp4"></source>
         </video> 
         <div className={styles.backgroundOne}></div>
@@ -154,9 +160,9 @@ const SplashPage = () => {
           easing="easeOutBounce"
           duration={400}
           delay={(el, i) => 
-            (2000 + (-40*i) + (40*wrappedWelcomeLetters.length))} 
+            (2000 + (-40*i) + (40*wrappedEnterLetters.length))} 
         >
-          {wrappedWelcomeLetters}
+          {wrappedEnterLetters}
         </Anime>
       </div>
 
@@ -164,19 +170,5 @@ const SplashPage = () => {
   )
 };
 
-{/* 
-const WriggleWrap = ({item}) => {
-  return (
-  <Anime
-    loop={true}
-    rotate={[(el) => Math.random()* 2 - 1,  (el) => Math.random()* 2 - 1]}
-    easing='easeInOutSine'
-    direction='alternate'
-    duration={800}
-    delay={3500}
-  >
-  </Anime>
-  )
-} */}
 
 export default SplashPage

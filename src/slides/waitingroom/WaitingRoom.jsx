@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './WaitingRoom.css';
+import Anime from 'react-anime';
 
 const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost, difficulty, setDifficulty }) => {
   // Handlers
@@ -35,25 +36,64 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost, difficult
   // List of players
   const roster = players.map(player => {
     return (
-      <p key={player.userId}>{player.nickname}</p>
+      <p key={player.userId}
+        className={styles.name}>
+        {player.nickname}
+      </p>
     );
   });
 
+  //Wrapper for title animation
+  const header = 'the W41ting R00m'
+  const wrappedHeaderLetters = [...header].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
+
+  // Wrapper for roomKey animation
+  const dancingRoomKey = [...roomKey].map((char, i) => (
+    <span key={i} className={styles.letter}>{char}</span>
+  ));
+
   return (
     <div className={styles.waitingRoom}>
-      <header>
+      <header className={styles.header}>
         <div className={styles.homeButton}>
-          <a href="/choosegame">Back to Home</a>
+          <a className={styles.myLink} href="/choosegame">Back to Home</a>
         </div>
-        <h1>M4th33tz</h1>
+        <div className={styles.title}>
+          <Anime
+            loop={true}
+            scale={[1.12, 1.13]}
+            rotate={[(el) => Math.random() * 9 - 6,
+              (el) => Math.random() * 9 - 2]}
+            translateY={[0, (el) => Math.random() * 6 - 2 ]}
+            easing="easeInOutQuad"
+            direction="alternate"
+            duration={690}
+          >
+            {wrappedHeaderLetters}
+          </Anime>
+        </div>
       </header>
       <div className={styles.waitingContent}>
         <div className={styles.waitingLeft}>
           <p>
-            To join, go to sdfklnsdfkjsdf, login, make yourself a nickname, and join this room:
+            To join, go to <strong>www.m4thl33tz.netlify.com</strong>, login, make yourself a nickname, and join this room:
           </p>
-          <div>
-            {roomKey}
+          <div className={styles.roomKey}>
+            <Anime
+              loop={true}
+              scale={[1.12, 1.13]}
+              rotate={[(el) => Math.random() * 9 - 4,
+                (el) => Math.random() * 9 + 1]}
+              translateZ={[[(el) => Math.random() * 9 - 6,
+                (el) => Math.random() * 9 - 2]]}  
+              easing="easeInOutQuad"
+              direction="alternate"
+              duration={690}
+            >
+              {dancingRoomKey}
+            </Anime>
           </div>
           <div className={styles.joinRoomInfo}></div>
           <div className={styles.waitingRoomOptions}>
@@ -74,7 +114,21 @@ const WaitingRoom = ({ socket, roomKey, setGameState, players, isHost, difficult
           </div>
         </div>
         <div className={styles.waitingRight}>
-          <div className={styles.roster}>{roster}</div>
+          <div className={styles.roster}>
+            <Anime
+              loop={true}
+              scale={[1.12, 1.13]}
+              rotate={[(el) => Math.random() * 1 - .5,
+                (el) => Math.random() * 1 + .5]}
+              translateX={[[(el) => Math.random() * 30 - 15,
+                (el) => Math.random() * 30 - 15]]}  
+              easing="easeInOutExpo"
+              direction="alternate"
+              duration={690}
+            >
+              {roster}
+            </Anime>
+          </div>
           <button
             style={{ visibility: isHost ? 'visible' : 'hidden' }}
             onClick={startGame}>

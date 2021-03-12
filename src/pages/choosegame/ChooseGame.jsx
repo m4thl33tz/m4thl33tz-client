@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import styles from './ChooseGame.css';
 import LeftSideDrawer from '../../components/drawers/LeftSideDrawer';
 import Button from '@material-ui/core/Button';
+import video from '../../assets/approaching_equations_long.mp4';
 
 const ChooseGame = ({ socket }) => {
   const history = useHistory();
@@ -49,7 +50,7 @@ const ChooseGame = ({ socket }) => {
         aboutUsButton={false}
       />
       <video className={styles.backgroundVideo} autoPlay muted loop>
-        <source src="./src/assets/approaching_equations.mp4"
+        <source src={video}
           type="video/mp4"></source>
       </video> 
       <section className={styles.section}>
@@ -76,7 +77,8 @@ const ChooseGame = ({ socket }) => {
               type="text"
               value={nickname}
               onChange={updateNickname}
-              placeholder="nickname" />
+              placeholder="nickname"
+              maxLength="27" />
           </div>
         </div>
         <div className={styles.createRoom}>
