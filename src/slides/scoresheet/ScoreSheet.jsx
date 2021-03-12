@@ -11,7 +11,7 @@ const ScoreSheet = ({ socket, players, setGameState }) => {
   useEffect(() => {
     socket.on('DISPLAY_WINNER', setGameState);
 
-    const { points } = players.find(p => p.userId === socket.id);
+    const { points = 0 } = players.find(p => p.userId === socket.id);
 
     if(user) addPoints(user.email, points);
   }, []);

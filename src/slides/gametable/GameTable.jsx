@@ -19,9 +19,12 @@ const GameTable = ({ socket, roomKey, players, setGameState, problemSet, setProb
 
   // Socket Listeners
   useEffect(() => {
-    socket.on('TIMER', setTimeLeft);
+    socket.on('TIMER', ({ roomKey, timeLeft }) => {
+      if(roomKey === socket.roomKey) setTimeLeft(timeLeft);
+    });
+
     socket.on('ROUND_OVER', setGameState);
-  });  
+  }, []);  
 
   const increment = () => {
     setCounter(counter => counter + 1);

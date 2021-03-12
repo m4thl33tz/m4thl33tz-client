@@ -36,6 +36,7 @@ export default function gameRoom({ socket }) {
     });
   
     socket.on('ROOM_KEY', ({ roomKey }) => {
+      socket.roomKey = roomKey;
       setRoomKey(roomKey);
     });
   
