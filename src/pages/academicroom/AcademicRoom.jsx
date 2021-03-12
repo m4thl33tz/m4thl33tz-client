@@ -60,7 +60,7 @@ const AcademicRoom = (props) => {
     increment();
     setIsCorrect(null);
     setAnswer('');
-    setFeedback('');
+    setFeedback(' ');
     enableSubmit();
     disableNextAndSkip();
   };
@@ -69,7 +69,7 @@ const AcademicRoom = (props) => {
     increment();
     setIsCorrect(null);
     setAnswer('');
-    setFeedback('');
+    setFeedback(' ');
     disableNextAndSkip();
   };
   
@@ -103,6 +103,7 @@ const AcademicRoom = (props) => {
       setProblems(problems);
       setSetLength(problems.length);
       setCounter(0);
+      console.log(problems);
     });
   }, [operationType]);
   
