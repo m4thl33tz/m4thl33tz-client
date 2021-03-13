@@ -20,6 +20,9 @@ const AcademicRoom = (props) => {
   const [operationType, setOperationType] = useState('addition');
   const [difficulty, setDifficulty] = useState('easy');
   const [counter, setCounter] = useState(0);
+  const [submitButton, setSubmitButton] = useState(false);
+  const [nextButton, setNextButton] = useState(false);
+  const [skipButton, setSkipButton] = useState(false);
   
   const updateOperationType = ({ target }) => {
     setOperationType(target.value);
@@ -42,35 +45,44 @@ const AcademicRoom = (props) => {
   };
 
   const disableSubmit = () => {
-    document.getElementById('SubmitButton').disabled = true;
+    setSubmitButton(true);
   };
 
   const enableSubmit = () => {
-    document.getElementById('SubmitButton').disabled = false;
+    setSubmitButton(false);
   };
 
   const disableNextAndSkip = () => {
-    if(counter + 2 === setLength){ 
-      document.getElementById('nextButton').disabled = true;
-      document.getElementById('skipButton').disabled = true;
-    }
+    setNextButton(true);
+    setSkipButton(true);
   };
 
   const nextProblem = ({ target }) => {
-    increment();
-    setIsCorrect(null);
-    setAnswer('');
-    setFeedback('');
-    enableSubmit();
-    disableNextAndSkip();
+    if(counter + 1 < setLength){
+      enableSubmit();
+      increment();
+      setIsCorrect(null);
+      setAnswer('');
+      setFeedback('Another one!');
+    } else {
+      disableSubmit();
+      disableNextAndSkip();
+      setFeedback('Choose another problem set and try again!');
+    }
   };
 
   const skipProblem = ({ target }) => {
-    increment();
-    setIsCorrect(null);
-    setAnswer('');
-    setFeedback('');
-    disableNextAndSkip();
+    if(counter + 1 < setLength){
+      enableSubmit();
+      increment();
+      setIsCorrect(null);
+      setAnswer('');
+      setFeedback('Let\'s try another one!');
+    } else {
+      disableSubmit();
+      disableNextAndSkip();
+      setFeedback('Choose another problem set and try again!');
+    }
   };
   
   const showSolution = ({ target }) => {
@@ -95,16 +107,11 @@ const AcademicRoom = (props) => {
       setProblems(problems);
       setSetLength(problems.length);
       setCounter(0);
+      setSubmitButton(false);
+      setNextButton(false);
+      setSkipButton(false);
     });
-  }, [difficulty]);
-
-  useEffect(() => {
-    getProblems({ type: operationType, difficulty }).then((problems) => {
-      setProblems(problems);
-      setSetLength(problems.length);
-      setCounter(0);
-    });
-  }, [operationType]);
+  }, [difficulty, operationType]);
   
   useEffect(() => {
     getProblems({ type: operationType, difficulty }).then((problems) => {
@@ -134,6 +141,7 @@ const AcademicRoom = (props) => {
               checkAnswer={checkAnswer}
               operationType={operationType}
               difficulty={difficulty}
+              submitButton={submitButton}
             />
           </div>
           <div className={styles.inputContainer}>
@@ -142,16 +150,19 @@ const AcademicRoom = (props) => {
                 text="Next Problem"
                 id="nextButton"
                 buttonFunction={nextProblem}
+                disabled={nextButton}
               />
               <AnswerButton
                 text="Skip Problem"
                 id="skipButton"
                 buttonFunction={skipProblem}
+                disabled={skipButton}
               />
               <AnswerButton
                 text="Show Solution"
                 id="showButton"
                 buttonFunction={showSolution}
+                disabled={false}
               />
             </div>
           </div>

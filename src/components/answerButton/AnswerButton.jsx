@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AnswerButton = ({ text, buttonFunction, id }) => {
+const AnswerButton = ({ text, buttonFunction, id, disabled }) => {
   const classes = useStyles();
 
   return (
@@ -22,7 +22,9 @@ const AnswerButton = ({ text, buttonFunction, id }) => {
         color="primary"
         id={id}
         onClick={buttonFunction}
-        className={styles.answerButton}>
+        className={styles.answerButton}
+        disabled={disabled}      
+      >
         {text}
       </Button>
     </div>
@@ -33,6 +35,7 @@ AnswerButton.propTypes = {
   text: PropTypes.string.isRequired,
   buttonFunction: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default AnswerButton;

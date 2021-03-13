@@ -6,7 +6,16 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const SoloMathbox = ({  answer, equation, checkAnswer, updateAnswer, operationType, difficulty }) => {
+const SoloMathbox = ({ 
+  answer,
+  equation,
+  checkAnswer,
+  updateAnswer,
+  operationType,
+  difficulty,
+  submitButton
+}) => {
+
   
   return (
     <div className={styles.soloMathBox}>
@@ -30,6 +39,7 @@ const SoloMathbox = ({  answer, equation, checkAnswer, updateAnswer, operationTy
             type="submit"
             variant="contained"
             color="default"
+            disabled={submitButton}
           >
             Submit
           </Button>
@@ -46,6 +56,7 @@ SoloMathbox.propTypes = {
   updateAnswer: PropTypes.func.isRequired,
   operationType: PropTypes.string,
   difficulty: PropTypes.string,
+  submitButton: PropTypes.bool.isRequired,
 };
 
 export default SoloMathbox;

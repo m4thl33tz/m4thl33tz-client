@@ -11,7 +11,7 @@ const Feedback = ({ feedback, counter, setLength }) => {
       </div>
       <div className={styles.h3}>
         <h3>
-          {counter === 0 ? 'Welcome' : feedback}
+          {feedback || 'Welcome'}
         </h3>
         <h3>{counter + 1}/{setLength}</h3>
       </div>
@@ -20,7 +20,7 @@ const Feedback = ({ feedback, counter, setLength }) => {
 };
 
 Feedback.propTypes = {
-  feedback: PropTypes.string.isRequired,
+  feedback: PropTypes.string,
   counter: PropTypes.number.isRequired,
   setLength: PropTypes.number.isRequired,
 };
